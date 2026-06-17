@@ -1,0 +1,107 @@
+{
+ "keyword": "trade wbtc",
+ "h1": "Trade WBTC",
+ "brand": "WBTC",
+ "niche": "token",
+ "verb": "Trade",
+ "title": "Trade WBTC - Open App",
+ "meta_description": "trade wbtc on Ethereum via the Uniswap app; verify the WBTC contract, review route details, and connect only on app.uniswap.org.",
+ "palette": {
+  "mode": "dark",
+  "bg": "#0A0A0A",
+  "accent": "#F7931A",
+  "ink": "#FFFFFF"
+ },
+ "hero_h2": "Swap into Wrapped Bitcoin on Ethereum",
+ "hero_lead": "trade wbtc opens the Uniswap app for Wrapped Bitcoin on Ethereum, with contract checks, route details, price impact, and wallet confirmation before signing.",
+ "badge": "ERC-20",
+ "widget": {
+  "from": "ETH",
+  "from_net": "Ethereum",
+  "to": "WBTC",
+  "to_net": "Ethereum",
+  "action": "Open Uniswap App"
+ },
+ "trust": [
+  "Ethereum ERC-20",
+  "8 decimals",
+  "Verified contract"
+ ],
+ "what_is": "WBTC is the Wrapped Bitcoin ERC-20 token on Ethereum, designed as a Bitcoin-backed representation for wallets, DEXs, and DeFi apps; see the <a href=\"https://www.wbtc.network/assets/wrapped-tokens-whitepaper.pdf\">wrapped tokens whitepaper</a>.",
+ "how": [
+  {
+   "t": "Open the app",
+   "d": "Use the primary button to open app.uniswap.org and confirm the domain before connecting a wallet."
+  },
+  {
+   "t": "Confirm the token",
+   "d": "Select Ethereum mainnet and verify WBTC contract 0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599."
+  },
+  {
+   "t": "Review the quote",
+   "d": "Check the input asset, route, price impact, slippage setting, and estimated network cost."
+  },
+  {
+   "t": "Sign in wallet",
+   "d": "Approve only if needed, then confirm the swap from your wallet after the app details match your intent."
+  }
+ ],
+ "points": [
+  {
+   "h": "Bitcoin exposure on Ethereum",
+   "p": "WBTC brings a BTC-denominated asset into Ethereum applications while remaining an ERC-20 token."
+  },
+  {
+   "h": "Contract-first checks",
+   "p": "Verify the token address on <a href=\"https://etherscan.io/token/0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599\">Etherscan</a> before using any swap route."
+  },
+  {
+   "h": "Wallet-native execution",
+   "p": "The app flow keeps the final decision in your wallet: review approvals, gas, and the exact asset before signing."
+  }
+ ],
+ "eeat": [
+  {
+   "text": "WBTC whitepaper",
+   "url": "https://www.wbtc.network/assets/wrapped-tokens-whitepaper.pdf"
+  },
+  {
+   "text": "WBTC on Etherscan",
+   "url": "https://etherscan.io/token/0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599"
+  },
+  {
+   "text": "Ethereum ERC-20 docs",
+   "url": "https://ethereum.org/developers/docs/standards/tokens/erc-20/"
+  }
+ ],
+ "faq": [
+  {
+   "q": "How do I trade wbtc safely?",
+   "a": "Open the official app domain, verify the WBTC contract, review the quote and price impact, and sign only after your wallet shows the expected assets.",
+   "open": true
+  },
+  {
+   "q": "Can I trade wbtc on Ethereum?",
+   "a": "Yes. WBTC is an ERC-20 token on Ethereum; the mainnet contract is listed on <a href=\"https://etherscan.io/token/0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599\">Etherscan</a>.",
+   "open": false
+  },
+  {
+   "q": "Do I need BTC to trade wbtc?",
+   "a": "No. You can swap from supported Ethereum assets; minting or redeeming BTC through WBTC merchants is a separate process from a DEX swap.",
+   "open": false
+  },
+  {
+   "q": "Is trade wbtc the same as buying Bitcoin?",
+   "a": "No. WBTC is a wrapped representation of BTC on Ethereum, so it carries token, custodian, liquidity, and wallet risks in addition to BTC price exposure.",
+   "open": false
+  },
+  {
+   "q": "What should I check before I trade wbtc?",
+   "a": "Check the URL, wallet network, token address, route, price impact, approvals, and that you have enough ETH for gas.",
+   "open": false
+  }
+ ],
+ "official_url": "https://app.uniswap.org/swap?chain=mainnet&outputCurrency=0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599",
+ "official_domain": "app.uniswap.org",
+ "footer_note": "Not the official WBTC or Uniswap app; verify app.uniswap.org before connecting; educational content only, not financial advice."
+}
