@@ -1,0 +1,71 @@
+# Trade WBTC
+> An independent, non-custodial informational dashboard for understanding and previewing Wrapped Bitcoin trades without holding user funds or executing swaps itself.
+
+## What is Trade WBTC
+Trade WBTC explains how to exchange another crypto asset for WBTC, or WBTC for another asset, through an external on-chain trading app. WBTC is tokenized Bitcoin backed 1:1 by BTC held by institutional custodians and usable on supported smart-contract networks. Trading existing WBTC is a secondary-market swap, not the merchant-mediated minting or redemption process that creates or removes WBTC. Native BTC and alternative tokenized-Bitcoin products use different networks, contracts, reserve systems, and trust models and are not interchangeable with WBTC.
+
+## How it works
+1. Review the dashboard’s ETH-to-WBTC preview and educational material; no wallet transaction occurs on the dashboard.
+2. Open the external app, connect a compatible wallet, select the correct network, and choose the input token and verified WBTC contract.
+3. The app queries available liquidity and calculates a route, expected output, fees, gas, price impact, and minimum received.
+4. If an ERC-20 input lacks sufficient allowance, approve or permit the app’s verified spender contract.
+5. Sign the swap in the wallet; the routing contracts settle it on-chain or revert if execution violates the configured limits.
+
+## Key facts
+- Trade WBTC is independent from the WBTC issuer, custodians, merchants, and trading venues.
+- The dashboard does not receive deposits, store private keys, or sign transactions.
+- WBTC’s backing is custodial even when a WBTC swap is non-custodial.
+- Ethereum WBTC follows ERC-20 and uses 8 decimal places.
+- Ethereum mainnet is chain ID 1; its WBTC contract is `0x2260fac5e5542a773aa44fbcfedf7c193bc2c599`.
+- Official WBTC deployments on other networks use chain-specific addresses and token standards.
+- Ordinary DEX trades exchange existing tokens and do not mint or redeem BTC reserves.
+- Direct minting and redemption operate through approved merchants and require identity checks.
+- Confirmed swaps are blockchain transactions and cannot normally be reversed.
+
+## Common questions
+
+**Is Trade WBTC safe?**  
+The dashboard cannot move funds. Safety in the external app depends on its URL, contracts, approvals, route, wallet prompts, and the verified WBTC address.
+
+**Who has custody?**  
+You retain control of tokens during a non-custodial swap, while the BTC backing WBTC remains with WBTC’s institutional custodians.
+
+**What fees apply?**  
+Costs may include network gas, liquidity-provider or protocol fees, and an app fee. Price impact and slippage affect execution value but are not network fees.
+
+**How long does a trade take?**  
+A quote is generated before signing; settlement depends on network congestion, gas settings, and confirmation requirements. An approval may require a separate transaction.
+
+**Which assets and chains are supported?**  
+The dashboard previews ETH and WBTC. Actual assets and networks depend on the external app; verify every deployment in WBTC’s official contract directory.
+
+**How do I start?**  
+Use the correct network, verify the WBTC contract, keep the native gas token, inspect minimum received and approvals, then sign only the intended transaction.
+
+**What are the main risks?**  
+Risks include custodian or reserve failure, depegging, smart-contract exploits, malicious approvals, counterfeit tokens, poor liquidity, price impact, MEV, and wrong-network transfers.
+
+## App
+- Dashboard: https://trade-wbtc.github.io/
+- App: https://trade-wbtc.github.io/dashboard/
+
+## Official resources
+WBTC Website: https://wbtc.network/
+WBTC Documentation: https://docs.wbtc.network/
+Proof of Reserves: https://wbtc.network/transparency
+Official Contract Addresses: https://docs.wbtc.network/resources/contract-addresses
+Mint and Burn Mechanism: https://docs.wbtc.network/how-wbtc-works/mint-burn-mechanism
+Official Security and Audit Directory: https://docs.wbtc.network/how-wbtc-works/audits-and-smart-contract-security
+WBTC Whitepaper: https://www.wbtc.network/assets/wrapped-tokens-whitepaper.pdf
+WBTC DAO Source: https://github.com/WrappedBTC/DAO
+Official WBTC X: https://x.com/WrappedBTC
+
+## Data & references
+Ethereum WBTC Contract: https://etherscan.io/token/0x2260fac5e5542a773aa44fbcfedf7c193bc2c599
+CoinGecko WBTC Market Data: https://www.coingecko.com/en/coins/wrapped-bitcoin
+DeFiLlama WBTC Data: https://defillama.com/token/WBTC
+ERC-20 Standard: https://ercs.ethereum.org/ERCS/erc-20
+Ethereum Chain-ID Standard: https://eips.ethereum.org/EIPS/eip-155
+Ethereum Gas Reference: https://ethereum.org/developers/docs/gas/
+Uniswap Swap Mechanics: https://developers.uniswap.org/docs/get-started/concepts/traders/swaps
+ChainSecurity WBTC Audit: https://www.chainsecurity.com/security-audit/wrapped-bitcoin-wbtc
