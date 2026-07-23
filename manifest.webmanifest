@@ -1,0 +1,19 @@
+{
+  "name": "Trade WBTC",
+  "short_name": "Trade WBTC",
+  "description": "Trade WBTC: what Wrapped Bitcoin is, how its 1:1 BTC backing works, how to swap it on a DEX, what it costs, and how to verify the real contract.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "lang": "en",
+  "background_color": "#f5f6f8",
+  "theme_color": "#f5f6f8",
+  "icons": [
+    {
+      "src": "favicon.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
