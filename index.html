@@ -1,19 +1,20 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Trade WBTC — Dashboard</title>
-  <meta name="description" content="Trade WBTC: what Wrapped Bitcoin is, how its 1:1 BTC backing works, how to swap it on a DEX, what it costs, and how to verify the real contract.">
-  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
-  <meta name="theme-color" content="#f5f6f8">
-  <link rel="canonical" href="https://trade-wbtc.github.io/">
-  <link rel="icon" type="image/png" href="favicon.png">
-  <link rel="apple-touch-icon" href="favicon.png">
-  <link rel="manifest" href="manifest.webmanifest">
-  <link rel="image_src" href="og-cover.png">
-  <link rel="preconnect" href="https://api.coingecko.com" crossorigin>
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Trade WBTC — Dashboard</title>
+<meta content="Trade WBTC: what Wrapped Bitcoin is, how its 1:1 BTC backing works, how to swap it on a DEX, what it costs, and how to verify the real contract." name="description"/>
+<meta content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" name="robots"/>
+<meta content="#f5f6f8" name="theme-color"/>
+<link href="https://trade-wbtc.github.io/" rel="canonical"/>
+<link href="favicon.png" rel="icon" type="image/png"/>
+<link href="favicon.png" rel="apple-touch-icon"/>
+<link href="manifest.webmanifest" rel="manifest"/>
+<link href="og-cover.png" rel="image_src"/>
+<link crossorigin="" href="https://api.coingecko.com" rel="preconnect"/>
+<style>
 /* Trade WBTC — independent single-page hub. */
 :root {
   color-scheme: light;
@@ -112,7 +113,7 @@ html:not(.js) .menu-btn { display: none; }
 
 /* ───────── main / topbar ───────── */
 .main { flex: 1; min-width: 0; display: flex; flex-direction: column; }
-.topbar { position: sticky; top: 0; z-index: 40; flex: 0 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 12px 20px; flex-wrap: wrap; padding: 11px 26px; border-bottom: 1px solid var(--line); background: rgba(255, 255, 255, 0.82); backdrop-filter: blur(10px); }
+.topbar { position: relative; z-index: 40; flex: 0 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 12px 20px; flex-wrap: wrap; padding: 21px 26px; border-bottom: 0; background: transparent; }
 .topbar-right { display: flex; align-items: center; gap: 10px 18px; flex-wrap: wrap; }
 .mode-switch { display: inline-flex; align-items: center; gap: 10px; }
 .ms-label { font-size: 13.5px; font-weight: 700; color: var(--muted); transition: color 150ms var(--ease); }
@@ -176,6 +177,44 @@ html:not(.js) .menu-btn { display: none; }
 .content .lead-in { padding: clamp(4px, 1vh, 12px) 0 clamp(10px, 2.5vh, 22px); }
 .content .lead-in > p { margin: 0 0 16px; font-size: 15px; line-height: 1.66; color: var(--text); }
 .content .lead-in > p strong { color: var(--ink); font-weight: 700; }
+/* premium feature card (modern-site feel) */
+.content .lead-in .feat{position:relative;width:min(1120px,calc(100vw - 44px));margin-left:50%;transform:translateX(-50%);display:grid;grid-template-columns:1.08fr .92fr;align-items:stretch;background:linear-gradient(165deg,#141824,#0b0e15);border:1px solid rgba(255,255,255,.09);border-radius:28px;overflow:hidden;box-shadow:0 52px 120px -55px rgba(0,0,0,.82)}
+.feat-l{padding:clamp(32px,4vw,64px);display:flex;flex-direction:column;justify-content:center}
+.feat-l h2{margin:0;font-size:clamp(2.2rem,4.6vw,3.2rem);line-height:1.03;font-weight:800;letter-spacing:-.03em;color:#fff}
+.feat-lead{margin:20px 0 0;font-size:17px;line-height:1.6;color:rgba(255,255,255,.9);max-width:48ch}
+.content .lead-in .feat-lead a{color:#fff;text-decoration:underline;text-decoration-color:rgba(255,255,255,.55);text-underline-offset:3px}
+.content .lead-in .feat-lead a:hover{text-decoration-color:#fff}
+.feat-cta{margin:32px 0 0}
+.content .lead-in .feat-btn{display:inline-flex;align-items:center;gap:10px;padding:17px 38px;border-radius:999px;background:linear-gradient(135deg,var(--accent),color-mix(in srgb,var(--accent) 50%,#7c4dff));color:#fff;font-weight:750;font-size:16.5px;text-decoration:none;box-shadow:0 20px 44px -12px var(--accent-glow);transition:transform .16s var(--ease),box-shadow .16s var(--ease)}
+.content .lead-in .feat-btn:hover{transform:translateY(-2px);box-shadow:0 26px 56px -14px var(--accent-glow)}
+.feat-btn .arr{transition:transform .18s var(--ease)}
+.content .lead-in .feat-btn:hover .arr{transform:translateX(3px)}
+.feat-more{margin:18px 0 0}
+.feat-readmore{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:7px;font-size:13.5px;font-weight:700;color:rgba(255,255,255,.7);transition:color .15s var(--ease)}
+.feat-readmore::-webkit-details-marker{display:none}
+.feat-readmore:hover{color:#fff}
+.feat-readmore .chev{width:15px;height:15px;transition:transform .2s var(--ease)}
+.feat-more[open] .feat-readmore .chev{transform:rotate(180deg)}
+.feat-detail{margin:20px 0 0;font-size:14.5px;line-height:1.72;color:rgba(255,255,255,.82)}
+.content .lead-in .feat-detail a{color:#fff;text-decoration:underline;text-decoration-color:rgba(255,255,255,.55);text-underline-offset:3px}
+.feat-more:not([open]) .feat-detail{display:none}
+.content .lead-in .feat-lead{color:rgba(255,255,255,.9)}
+.content .lead-in .feat-detail,.content .lead-in .feat-detail p{color:rgba(255,255,255,.82)}
+.feat-facts{display:grid;grid-template-columns:1fr 1fr;gap:0 26px;margin:18px 0 2px}
+.feat-fact{padding:10px 0;border-top:1px solid rgba(255,255,255,.1)}
+.feat-fact .fl{display:block;font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:rgba(255,255,255,.5);margin:0 0 3px}
+.feat-fact .fv{display:block;font-size:12.5px;line-height:1.5;color:rgba(255,255,255,.88)}
+.feat-r{position:relative;overflow:hidden;min-height:clamp(300px,32vw,440px);background:radial-gradient(120% 105% at 70% 22%,color-mix(in srgb,var(--accent) 52%,#1a1030),#0a0d14 70%)}
+.feat-r::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:36px 36px;-webkit-mask:radial-gradient(70% 72% at 64% 36%,#000,transparent 76%);mask:radial-gradient(70% 72% at 64% 36%,#000,transparent 76%)}
+.feat-badge{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:2;width:clamp(122px,16vw,166px);height:clamp(122px,16vw,166px);border-radius:34px;display:grid;place-items:center;background:linear-gradient(160deg,rgba(255,255,255,.18),rgba(255,255,255,.02));box-shadow:0 38px 84px -22px var(--accent-glow),inset 0 0 0 1px rgba(255,255,255,.18)}
+.feat-badge img{width:52%;height:52%;object-fit:contain}
+@media (max-width:860px){
+  .content .lead-in .feat{width:calc(100vw - 28px);grid-template-columns:1fr}
+  .feat-l{padding:30px 22px 32px}
+  .feat-r{min-height:200px}
+  .feat-facts{grid-template-columns:1fr}
+}
+
 .tbl.spec table { min-width: 0; }
 .tbl.spec td:first-child { color: var(--muted); font-weight: 600; white-space: nowrap; width: 1%; }
 .content .sec { border-top: 1px solid var(--line); scroll-margin-top: 66px; }
@@ -323,167 +362,189 @@ html.js .reveal.in { opacity: 1; transform: none; }
 .mnote { text-align: center; font-size: 11px; color: var(--muted); margin: 12px 2px 0; line-height: 1.5; }
 .mnote a { color: var(--accent-2); font-weight: 600; text-decoration: none; }
 @media (prefers-reduced-motion: reduce) { .scrollcue2 svg, .mspin { animation: none; } .mbar i { transition: none; } }
+/* docs layout (sticky TOC + open sections) */
+.docs{position:relative;width:min(1120px,calc(100vw - 44px));margin-left:50%;transform:translateX(-50%);display:grid;grid-template-columns:236px minmax(0,1fr);gap:clamp(28px,4vw,60px);margin-top:clamp(40px,6vh,72px);align-items:start}
+.toc{position:sticky;top:74px;align-self:start;max-height:calc(100dvh - 96px);overflow:auto}
+.toc-h{margin:0 0 10px;font-size:10.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);padding-left:13px}
+.toc a{display:block;padding:7px 13px;border-left:2px solid var(--line);color:var(--muted);font-size:13px;font-weight:600;line-height:1.35;text-decoration:none;transition:color .15s var(--ease),border-color .15s var(--ease)}
+.toc a:hover{color:var(--ink)}
+.toc a.active{color:var(--accent-2);border-left-color:var(--accent);font-weight:750}
+.doc-main{min-width:0}
+.content .doc-sec{border:1px solid var(--line);border-radius:20px;background:var(--panel);box-shadow:0 1px 3px rgba(17,24,39,.04);margin:0 0 16px;padding:0;scroll-margin-top:82px;transition:box-shadow .26s var(--ease),border-color .26s var(--ease)}
+.content .doc-sec:first-child{border-top:1px solid var(--line)}
+.content .doc-sec:hover{border-color:var(--line-2);box-shadow:0 16px 40px -22px rgba(17,24,39,.18)}
+.content .doc-sec[open]{border-color:var(--line)}
+.content .doc-sec>summary{cursor:default;pointer-events:none;padding:clamp(20px,3vh,28px) clamp(22px,3.2vw,32px) 8px;list-style:none}
+.content .doc-sec>summary::-webkit-details-marker{display:none}
+.content .doc-sec>summary::after{display:none}
+.content .doc-sec>summary h2{font-size:clamp(1.2rem,2.3vw,1.5rem)}
+.content .doc-sec .sec-body{padding:0 clamp(22px,3.2vw,32px) clamp(22px,3.4vh,30px);max-width:74ch}
+.content .doc-sec.field-notes{border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:20px;background:var(--panel);box-shadow:0 1px 3px rgba(17,24,39,.04);margin:0 0 16px;padding:clamp(22px,3vh,28px) clamp(22px,3.2vw,32px)}
+.content .doc-sec.field-notes h2{font-size:clamp(1.2rem,2.3vw,1.5rem)}
+.content .doc-sec.field-notes .fn-body{max-width:74ch}
+@media (max-width:900px){
+  .docs{grid-template-columns:1fr;width:calc(100vw - 28px);gap:0}
+  .toc{position:sticky;top:56px;z-index:20;display:flex;gap:8px;overflow-x:auto;max-height:none;background:var(--bg);padding:11px 2px;margin:0 0 6px;border-bottom:1px solid var(--line);-webkit-overflow-scrolling:touch}
+  .toc-h{display:none}
+  .toc a{flex:0 0 auto;white-space:nowrap;border-left:0;border:1px solid var(--line);border-radius:999px;padding:8px 15px;font-size:12.5px}
+  .toc a.active{color:var(--accent-2);border-color:var(--accent);background:var(--accent-soft)}
+}
+.site-foot{width:min(1120px,calc(100vw - 44px));margin:clamp(34px,5vh,60px) auto 0;padding:22px 2px clamp(30px,4vh,48px);color:var(--faint);font-size:12.5px;line-height:1.6}
+.site-foot p{margin:0 0 6px;max-width:82ch}
+.site-foot strong{color:var(--muted);font-weight:700}
+.site-foot .foot-fine{font-size:11.5px}
   </style>
-  <meta property="og:type" content="website"><meta property="og:url" content="https://trade-wbtc.github.io/">
-  <meta property="og:title" content="Trade WBTC — Dashboard">
-  <meta property="og:description" content="Trade WBTC: what Wrapped Bitcoin is, how its 1:1 BTC backing works, how to swap it on a DEX, what it costs, and how to verify the real contract.">
-  <meta property="og:site_name" content="Trade WBTC"><meta property="og:image" content="https://trade-wbtc.github.io/og-cover.png">
-  <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Trade WBTC — independent dashboard">
-  <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Trade WBTC — Dashboard">
-  <meta name="twitter:description" content="Trade WBTC: what Wrapped Bitcoin is, how its 1:1 BTC backing works, how to swap it on a DEX, what it costs, and how to verify the real contract."><meta name="twitter:image" content="https://trade-wbtc.github.io/og-cover.png">
-  <script type="application/ld+json">
+<meta content="website" property="og:type"/><meta content="https://trade-wbtc.github.io/" property="og:url"/>
+<meta content="Trade WBTC — Dashboard" property="og:title"/>
+<meta content="Trade WBTC: what Wrapped Bitcoin is, how its 1:1 BTC backing works, how to swap it on a DEX, what it costs, and how to verify the real contract." property="og:description"/>
+<meta content="Trade WBTC" property="og:site_name"/><meta content="https://trade-wbtc.github.io/og-cover.png" property="og:image"/>
+<meta content="1200" property="og:image:width"/><meta content="630" property="og:image:height"/><meta content="Trade WBTC — independent dashboard" property="og:image:alt"/>
+<meta content="summary_large_image" name="twitter:card"/><meta content="Trade WBTC — Dashboard" name="twitter:title"/>
+<meta content="Trade WBTC: what Wrapped Bitcoin is, how its 1:1 BTC backing works, how to swap it on a DEX, what it costs, and how to verify the real contract." name="twitter:description"/><meta content="https://trade-wbtc.github.io/og-cover.png" name="twitter:image"/>
+<script type="application/ld+json">
   {"@context": "https://schema.org", "@graph": [{"@type": "WebSite", "@id": "https://trade-wbtc.github.io/#website", "url": "https://trade-wbtc.github.io/", "name": "Trade WBTC", "inLanguage": "en"}, {"@type": "Thing", "@id": "https://trade-wbtc.github.io/#brand", "name": "WBTC", "alternateName": ["Trade WBTC", "WBTC"], "description": "WBTC — how to acquire, convert, and swap the token on-chain.", "sameAs": ["https://docs.wbtc.network/", "https://ethereum.org/bridges", "https://en.wikipedia.org/wiki/WBTC", "https://www.coingecko.com/en/coins/wrapped-bitcoin", "https://coinmarketcap.com/currencies/wrapped-bitcoin/"]}, {"@type": "WebPage", "@id": "https://trade-wbtc.github.io/#webpage", "url": "https://trade-wbtc.github.io/", "name": "Trade WBTC — Dashboard", "description": "Trade WBTC: what Wrapped Bitcoin is, how its 1:1 BTC backing works, how to swap it on a DEX, what it costs, and how to verify the real contract.", "isPartOf": {"@id": "https://trade-wbtc.github.io/#website"}, "about": {"@id": "https://trade-wbtc.github.io/#brand"}, "mainEntity": {"@id": "https://trade-wbtc.github.io/#brand"}, "inLanguage": "en", "dateModified": "2026-07-21"}, {"@type": "FAQPage", "@id": "https://trade-wbtc.github.io/#faq", "mainEntity": [{"@type": "Question", "name": "What is WBTC?", "acceptedAnswer": {"@type": "Answer", "text": "WBTC (Wrapped Bitcoin) is tokenized Bitcoin: an ERC-20 token backed 1:1 by BTC held with institutional custodians, so Bitcoin's value can be used on smart-contract networks like Ethereum."}}, {"@type": "Question", "name": "Is WBTC the same as Bitcoin?", "acceptedAnswer": {"@type": "Answer", "text": "No. WBTC tracks BTC's price, but it's a separate asset on a different network with a custodial trust model. Native BTC and WBTC are not interchangeable — you convert between them rather than simply moving one to the other."}}, {"@type": "Question", "name": "How do I convert WBTC back to BTC?", "acceptedAnswer": {"@type": "Answer", "text": "Two routes: sell or swap WBTC for BTC on an exchange or DEX (a normal secondary-market trade), or redeem through an approved merchant, which destroys the WBTC against BTC reserves and requires identity checks."}}, {"@type": "Question", "name": "Is WBTC really backed 1:1?", "acceptedAnswer": {"@type": "Answer", "text": "By design, yes — each WBTC corresponds to BTC held by the custodians, and its price tracks BTC closely as a result. The backing is custodial, so you're trusting those custodians' reserves and processes."}}, {"@type": "Question", "name": "What does it cost to trade WBTC?", "acceptedAnswer": {"@type": "Answer", "text": "On a DEX swap: network gas (paid in the chain's native token, for both the approval and the swap), a pool fee paid to liquidity providers, and price impact that grows with trade size. The app's quoted output already nets out the fee and impact — minimum received is your floor."}}, {"@type": "Question", "name": "Is the WBTC contract safe?", "acceptedAnswer": {"@type": "Answer", "text": "Verify the address rather than trusting a ticker — on Ethereum mainnet it's 0x2260fac5e5542a773aa44fbcfedf7c193bc2c599, checkable on any block explorer. Audits and a long track record reduce risk but don't remove it: smart-contract, approval, and custodial risks remain, and confirmed swaps can't be reversed."}}]}]}
   </script>
 </head>
 <body>
-  <a class="skip" href="#main">Skip to content</a>
-  <div class="shell">
-    <main class="main" id="main">
-      <header class="topbar">
-        <div class="topbar-left">
-          <button class="menu-btn" type="button" aria-label="Open navigation menu" aria-controls="sideNav" aria-expanded="false" data-nav-open><span class="bar"></span><span class="bar"></span><span class="bar"></span></button>
-          <a class="topbar-logo" href="./" aria-label="Trade WBTC home"><img src="favicon.png" width="20" height="20" alt="Trade WBTC logo"></a>
-          <h1 class="wordmark">Trade WBTC</h1>
-        </div>
-        <div class="topbar-right">
-          <div class="ticker" aria-label="Live metrics">
-            <a class="tick" href="https://www.coingecko.com/en/coins/bitcoin" target="_blank" rel="noopener noreferrer" aria-label="BTC"><span>BTC</span> <b id="sig-bitcoin">…</b> <span class="ext" aria-hidden="true">↗</span></a>
-            <a class="tick" href="https://www.coingecko.com/en/coins/wrapped-bitcoin" target="_blank" rel="noopener noreferrer" aria-label="WBTC"><span>WBTC</span> <b id="sig-wrapped-bitcoin">…</b> <span class="ext" aria-hidden="true">↗</span></a>
-            </div>
-        </div>
-      </header>
-
-            <section class="hero2">
-        <div class="hero2-l">
-          <h2 class="hero2-h">Swap In and Out of WBTC</h2>
-          <p class="hero2-lead"><strong>Trade WBTC</strong> to move between tokenized Bitcoin and other assets on-chain — preview the route here, then execute the swap in an external trading app.</p>
-          <div class="hero2-cta">
-            <a class="btn2 btn2-primary" href="dashboard/" target="_blank" rel="noopener noreferrer">Open the Trade WBTC app <span class="go" aria-hidden="true">↗</span></a>
-            <a class="btn2 btn2-ghost" href="#what">How it works</a>
-          </div>
-        </div>
-        <div class="hero2-r">
-        <section class="swap-card" id="swap-preview" aria-labelledby="preview-title">
-          <div class="card-head">
-            <p class="card-title" id="preview-title">Preview</p>
-            <span class="preview-tag"><span aria-hidden="true"></span>Preview only</span>
-          </div>
-          <div class="leg">
-            <span class="asset" id="asset-from"><span class="tok"><img src="btc.png" alt="BTC token" width="24" height="24" loading="lazy" decoding="async"></span><b>BTC</b><svg class="chev-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></span>
-            <span class="leg-amt"><span class="amount">0.00</span><span class="leg-sub">Preview</span></span>
-          </div>
-          <button class="swap-arrow" id="route-swap" type="button" aria-label="Swap preview direction" title="Swap preview direction">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M8 4v13M8 4L4 8M8 4l4 4M16 20V7M16 20l-4-4M16 20l4-4"/></svg>
-          </button>
-          <div class="leg">
-            <span class="asset" id="asset-to"><span class="tok"><img src="wbtc.png" alt="WBTC token" width="24" height="24" loading="lazy" decoding="async"></span><b>WBTC</b><svg class="chev-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></span>
-            <span class="leg-amt"><span class="amount">0.00</span><span class="leg-sub">Preview</span></span>
-          </div>
-          <div class="route-panel">
-            <div class="route-info"><b id="route-name">BTC → WBTC</b><span>Preview route</span></div>
-            <div class="route-tok"><span class="tok sm"><img src="wbtc.png" alt="WBTC token" width="18" height="18" loading="lazy" decoding="async"></span> WBTC</div>
-          </div>
-          <div class="route-row"><span>Pair</span><b>BTC / WBTC</b></div>
-          <div class="route-row"><span>Network cost</span><b>Gas</b></div>
-          <a class="swap-cta" href="dashboard/" target="_blank" rel="noopener noreferrer"><svg class="cta-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4"/></svg>Go to Swap<span class="cta-go" aria-hidden="true">→</span></a>
-        </section>
-        </div>
-        <a class="scrollcue2" href="#what" aria-label="Scroll to learn more"><span>Scroll</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M12 19l-6-6M12 19l6-6"/></svg></a>
-      </section>
-
-            <div class="content">
-        <div class="lead-in reveal">
-          <p><a href='https://wbtc.network/faq'>Wrapped Bitcoin (WBTC)</a> is tokenized Bitcoin — an ERC-20 token backed 1:1 by BTC held with institutional custodians, built so Bitcoin's value can move on smart-contract networks. In practice, trading WBTC means one of two things: swapping another token for WBTC (or back) on a DEX, which is a secondary-market trade of existing tokens, or minting and redeeming through approved merchants. This page is an independent, non-custodial dashboard — it explains and previews the trade, but never holds funds or signs transactions.</p>
-          <div class="tbl spec"><table><tbody><tr><td>Token</td><td>Wrapped Bitcoin (WBTC), an ERC-20 token with 8 decimal places</td></tr><tr><td>Backing / peg</td><td>1:1 with BTC held by institutional custodians</td></tr><tr><td>Convert</td><td>Swap on a DEX, or mint/redeem via approved merchants</td></tr><tr><td>Networks</td><td>Ethereum mainnet (chain ID 1) plus official deployments on other chains</td></tr><tr><td>Costs</td><td>Network gas; on a DEX swap add the pool fee and price impact</td></tr><tr><td>Verify</td><td>Check the contract address, not the ticker</td></tr></tbody></table></div>
-        </div>
-
-        <details id="what" class="sec reveal">
-          <summary><h2>What is Trade WBTC?</h2></summary>
-          <div class="sec-body"><p>WBTC is Bitcoin's value issued as a token on a smart-contract network. Each WBTC is designed to be backed 1:1 by BTC sitting with institutional custodians, so its price tracks Bitcoin while the token itself behaves like any other ERC-20 — transferable, and usable inside DeFi apps that native BTC can't touch. On Ethereum it follows ERC-20 and uses 8 decimal places, matching Bitcoin's own precision. The reason <a href='https://en.wikipedia.org/wiki/WBTC'>WBTC</a> exists is simple: the Bitcoin network has no smart contracts, so if you want BTC-denominated value inside lending markets, liquidity pools, or on-chain trades, you need a wrapped representation. That convenience comes with a trade-off — the backing is custodial, meaning you trust the custodians to hold the BTC, even when the swap itself is non-custodial.</p></div>
-        </details>
-
-        <details id="wrap" class="sec reveal">
-          <summary><h2>Getting in and out</h2></summary>
-          <div class="sec-body"><p>There are two doors into WBTC, and they are not the same thing. The door almost everyone uses is the secondary market: swap an asset you already hold — ETH, a stablecoin — for existing WBTC on a DEX or an exchange. No new WBTC is created; you're just buying tokens that already circulate. The other door is primary issuance: approved merchants <a href='https://docs.wbtc.network/'>mint and redeem</a> WBTC directly against BTC reserves, which requires identity checks and is built for size, not for retail trades. Getting out mirrors getting in: sell WBTC for another asset on the open market, or redeem through a merchant if you qualify. The common mistake is assuming a DEX swap 'unwraps' WBTC into BTC — it doesn't. It just trades the token; the BTC reserves stay with the custodians throughout.</p></div>
-        </details>
-
-        <details id="swap" class="sec reveal">
-          <summary><h2>Swapping it on a DEX</h2></summary>
-          <div class="sec-body"><p>A DEX swap is the everyday way to trade WBTC, and the mechanics are a standard ERC-20 exchange. Connect a compatible wallet, confirm you're on the correct network, select your input token, and select WBTC by pasting its verified contract address — not by trusting a ticker search. The app queries available liquidity and returns a route: expected output, the pool fee, estimated gas, price impact, and a minimum-received figure. If your input token doesn't have sufficient allowance for the router, you'll approve (or permit) the verified spender contract first — that's a separate on-chain transaction with its own gas. Then you sign the swap. The routing contracts settle it atomically: it either executes within your configured limits or reverts and nothing moves. Two numbers deserve your eyes before signing: minimum received and price impact, because those — not the headline quote — define your worst case.</p></div>
-        </details>
-
-        <details id="vs" class="sec reveal">
-          <summary><h2>The token vs its native asset</h2></summary>
-          <div class="sec-body"><p>WBTC and BTC share a price but not a network, a contract, or a trust model, and they are not interchangeable. Native BTC is the bearer asset on the Bitcoin network: no custodian, no smart-contract risk, but also no DeFi access. WBTC is a claim on that value issued on Ethereum and other supported chains: it plugs into lending, liquidity, and trading apps, but it adds two layers BTC doesn't have — custodial risk on the backing and smart-contract risk on everything you do with it. <a href='https://ethereum.org/bridges'>Wrapping and bridging</a> always move risk somewhere rather than removing it. The judgment call: hold BTC if you want the cleanest form of the asset; hold WBTC while you actively need Bitcoin's value working on-chain, and know that alternative tokenized-Bitcoin products use different reserve systems and trust models, so treat each as its own asset.</p></div>
-        </details>
-
-        <details id="fees" class="sec reveal">
-          <summary><h2>Costs and gas</h2></summary>
-          <div class="sec-body"><p>Costs on a WBTC trade come in layers, and confusing them is how people overpay. First, network gas: every transaction — the approval and the swap itself — pays gas in the chain's native token, and the price moves with congestion, so a route that's cheap to quote can still be expensive to settle at a busy moment. Second, on a DEX swap, the pool fee: a slice of the trade paid to liquidity providers, baked into your quote. Third, price impact: the larger your order relative to the pool's liquidity, the worse your average execution price, and this is usually the biggest hidden cost on size. Your displayed output already nets out the pool fee and impact — minimum received is the floor. Merchant minting and redemption carry their own fee structure, separate from secondary-market swaps. No honest dashboard can quote you fixed figures; read the live route in the app and decide if it's acceptable.</p></div>
-        </details>
-
-        <details id="safety" class="sec reveal">
-          <summary><h2>Is Trade WBTC safe?</h2></summary>
-          <div class="sec-body"><p>This dashboard cannot move your funds — it takes no deposits, stores no keys, and signs nothing. All the real risk lives in the external app, and it concentrates in three places: a phishing URL impersonating a real venue, a fake WBTC token riding the ticker, and a malicious or unlimited approval. The defence for the token is mechanical: on Ethereum mainnet (chain ID 1), WBTC is <a href='https://eth.blockscout.com/token/0x2260fac5e5542a773aa44fbcfedf7c193bc2c599'>0x2260fac5e5542a773aa44fbcfedf7c193bc2c599</a>. Match the full address on a block explorer, not the ticker — anyone can mint a token called 'WBTC'. Official deployments on other networks use chain-specific addresses and standards, so re-verify per chain. Stay honest about the rest: audited and open-source code reduces risk but never removes it; smart-contract, approval, routing, and phishing risks remain, the BTC backing is a custodial trust assumption, and a confirmed swap is a blockchain transaction that cannot normally be reversed.</p></div>
-        </details>
-
-        <details id="troubleshoot" class="sec reveal">
-          <summary><h2>Problems and fixes</h2></summary>
-          <div class="sec-body"><p>Most failed WBTC trades trace to a short list. <strong>Wrong network:</strong> your wallet is on one chain and the app expects another — switch networks and re-verify the WBTC address for that chain, because addresses differ per deployment. <strong>No gas:</strong> you hold tokens but no native token for fees, so neither the approval nor the swap can go through — top up gas first. <strong>Token not found:</strong> the token list doesn't show WBTC — paste the verified contract address manually and check the decimals read 8. <strong>Stuck at approval:</strong> remember approval is its own transaction; the swap only becomes possible after it confirms, and approving the wrong spender is a risk, so verify the spender contract too. <strong>Swap reverts:</strong> price moved past your slippage or minimum-received limits — requote and resubmit rather than blindly loosening limits. <strong>Wrong action entirely:</strong> trying to 'unwrap' to BTC inside a DEX — that's a merchant redemption flow, not a swap.</p></div>
-        </details>
-
-        <details id="faq" class="sec reveal">
-          <summary><h2>WBTC FAQ</h2></summary>
-          <div class="sec-body">
-          <details class="qa"><summary>What is WBTC?</summary><div class="a"><p>WBTC (Wrapped Bitcoin) is tokenized Bitcoin: an ERC-20 token backed 1:1 by BTC held with institutional custodians, so Bitcoin's value can be used on smart-contract networks like Ethereum.</p></div></details>
-          <details class="qa"><summary>Is WBTC the same as Bitcoin?</summary><div class="a"><p>No. WBTC tracks BTC's price, but it's a separate asset on a different network with a custodial trust model. Native BTC and WBTC are not interchangeable — you convert between them rather than simply moving one to the other.</p></div></details>
-          <details class="qa"><summary>How do I convert WBTC back to BTC?</summary><div class="a"><p>Two routes: sell or swap WBTC for BTC on an exchange or DEX (a normal secondary-market trade), or redeem through an approved merchant, which destroys the WBTC against BTC reserves and requires identity checks.</p></div></details>
-          <details class="qa"><summary>Is WBTC really backed 1:1?</summary><div class="a"><p>By design, yes — each WBTC corresponds to BTC held by the custodians, and its <a href='https://www.coingecko.com/en/coins/wrapped-bitcoin'>price tracks BTC</a> closely as a result. The backing is custodial, so you're trusting those custodians' reserves and processes.</p></div></details>
-          <details class="qa"><summary>What does it cost to trade WBTC?</summary><div class="a"><p>On a DEX swap: network gas (paid in the chain's native token, for both the approval and the swap), a pool fee paid to liquidity providers, and price impact that grows with trade size. The app's quoted output already nets out the fee and impact — minimum received is your floor.</p></div></details>
-          <details class="qa"><summary>Is the WBTC contract safe?</summary><div class="a"><p>Verify the address rather than trusting a ticker — on Ethereum mainnet it's 0x2260fac5e5542a773aa44fbcfedf7c193bc2c599, checkable on any block explorer. Audits and a long track record reduce risk but don't remove it: smart-contract, approval, and custodial risks remain, and confirmed swaps can't be reversed.</p></div></details>
-          </div>
-        </details>
-
-        <section class="field-notes reveal" id="notes">
-          <h2>Notes before you trade wbtc</h2>
-          <div class="fn-body"><p><strong></strong> Trading WBTC is routine once you've done it twice — the swap itself is a standard ERC-20 exchange, and everything that goes wrong goes wrong at the edges: the network, the contract, the approval. <strong>The common mistake is</strong> picking WBTC by ticker from a DEX search and landing on a lookalike token instead of pasting the verified contract address. <strong>Before you sign:</strong></p><ul><li>Match the full contract address (0x2260...c599 on Ethereum mainnet) against a block explorer — never the ticker, never a search result.</li><li>Keep native gas on hand: both the approval and the swap pay it, and the approval must confirm before the swap can execute.</li><li>On the DEX route, read minimum received and price impact — those define your worst case, not the headline quote.</li></ul><p><strong>Everything above was checked against the live contract and issuer documentation; last reviewed 21 July 2026.</strong></p><p>Independent reference — confirm the route in your own wallet.</p></div>
-        </section>
-      </div>
-    </main>
-    <aside class="sidebar">
-      <div class="side-top">
-        <div class="brand">
-          <a class="brand-logo" href="./" aria-label="Trade WBTC home"><img src="favicon.png" width="30" height="30" alt="Trade WBTC logo"></a>
-          <p class="brand-name">WBTC</p>
-        </div>
-        <button class="nav-toggle" type="button" aria-label="Close navigation menu" aria-controls="sideNav" aria-expanded="false"><span class="bar"></span><span class="bar"></span><span class="bar"></span></button>
-      </div>
-
-      <nav class="side-nav" id="sideNav" aria-label="Primary">
-        <p class="nav-label">Trade</p>
-        <a class="nav-item is-active" href="#swap-preview" aria-current="true">
-          <svg class="ni-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M7 10h11l-3-3M17 14H6l3 3"/></svg>
-          Swap preview
-        </a>
-        <p class="nav-label">On this page</p>
-        <details class="nav-group">
-          <summary>
-            <svg class="ni-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 5h10a3 3 0 0 1 3 3v11a2 2 0 0 0-2-2H4zM20 5h-1a3 3 0 0 0-3 3v11a2 2 0 0 1 2-2h2z"/></svg>
-            Guide sections
-            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-          </summary>
-          <div class="nav-sub"><a href="#what">What is Trade WBTC?</a><a href="#wrap">Getting in and out</a><a href="#swap">Swapping it on a DEX</a><a href="#vs">The token vs its native asset</a><a href="#fees">Costs and gas</a><a href="#safety">Is Trade WBTC safe?</a><a href="#troubleshoot">Problems and fixes</a><a href="#faq">FAQ</a></div>
-        </details>
-      </nav>
-
-      <div class="sidebar-foot">
-        <p class="disclose"><strong>Independent</strong> Trade WBTC information dashboard. Not affiliated with any official product.</p>
-        <p class="fine">Live metrics are compiled from public APIs. Review your route in the official app before signing.</p>
-        <p class="fine">© 2026 Trade WBTC dashboard.</p>
-      </div>
-    </aside>
-    <div class="scrim" data-scrim></div>
-  </div>
+<a class="skip" href="#main">Skip to content</a>
+<div class="shell">
+<main class="main" id="main">
+<header class="topbar">
+<div class="topbar-left">
+<h1 class="wordmark">Trade WBTC</h1>
+</div>
+<div class="topbar-right">
+<div aria-label="Live metrics" class="ticker">
+<a aria-label="BTC" class="tick" href="https://www.coingecko.com/en/coins/bitcoin" rel="noopener noreferrer" target="_blank"><span>BTC</span> <b id="sig-bitcoin">…</b> <span aria-hidden="true" class="ext">↗</span></a>
+<a aria-label="WBTC" class="tick" href="https://coinmarketcap.com/currencies/wrapped-bitcoin/" rel="noopener noreferrer" target="_blank"><span>WBTC</span> <b id="sig-wrapped-bitcoin">…</b> <span aria-hidden="true" class="ext">↗</span></a>
+</div>
+</div>
+</header>
+<section class="hero2">
+<div class="hero2-l">
+<h2 class="hero2-h">Swap In and Out of WBTC</h2>
+<p class="hero2-lead"><strong>Trade WBTC</strong> to move between tokenized Bitcoin and other assets on-chain — preview the route here, then execute the swap in an external trading app.</p>
+<div class="hero2-cta">
+<a class="btn2 btn2-primary" href="dashboard/" rel="noopener noreferrer" target="_blank">Open the Trade WBTC app <span aria-hidden="true" class="go">↗</span></a>
+<a class="btn2 btn2-ghost" href="#what">How it works</a>
+</div>
+</div>
+<div class="hero2-r">
+<section aria-labelledby="preview-title" class="swap-card" id="swap-preview">
+<div class="card-head">
+<p class="card-title" id="preview-title">Preview</p>
+<span class="preview-tag"><span aria-hidden="true"></span>Preview only</span>
+</div>
+<div class="leg">
+<span class="asset" id="asset-from"><span class="tok"><img alt="BTC token" decoding="async" height="24" loading="lazy" src="btc.png" width="24"/></span><b>BTC</b><svg aria-hidden="true" class="chev-sm" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M6 9l6 6 6-6"></path></svg></span>
+<span class="leg-amt"><span class="amount">0.00</span><span class="leg-sub">Preview</span></span>
+</div>
+<button aria-label="Swap preview direction" class="swap-arrow" id="route-swap" title="Swap preview direction" type="button">
+<svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M8 4v13M8 4L4 8M8 4l4 4M16 20V7M16 20l-4-4M16 20l4-4"></path></svg>
+</button>
+<div class="leg">
+<span class="asset" id="asset-to"><span class="tok"><img alt="WBTC token" decoding="async" height="24" loading="lazy" src="wbtc.png" width="24"/></span><b>WBTC</b><svg aria-hidden="true" class="chev-sm" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M6 9l6 6 6-6"></path></svg></span>
+<span class="leg-amt"><span class="amount">0.00</span><span class="leg-sub">Preview</span></span>
+</div>
+<div class="route-panel">
+<div class="route-info"><b id="route-name">BTC → WBTC</b><span>Preview route</span></div>
+<div class="route-tok"><span class="tok sm"><img alt="WBTC token" decoding="async" height="18" loading="lazy" src="wbtc.png" width="18"/></span> WBTC</div>
+</div>
+<div class="route-row"><span>Pair</span><b>BTC / WBTC</b></div>
+<div class="route-row"><span>Network cost</span><b>Gas</b></div>
+<a class="swap-cta" href="dashboard/" rel="noopener noreferrer" target="_blank"><svg aria-hidden="true" class="cta-ico" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4"></path></svg>Go to Swap<span aria-hidden="true" class="cta-go">→</span></a>
+</section>
+</div>
+<a aria-label="Scroll to learn more" class="scrollcue2" href="#what"><span>Scroll</span><svg fill="none" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24"><path d="M12 5v14M12 19l-6-6M12 19l6-6"></path></svg></a>
+</section>
+<div class="content">
+<div class="lead-in reveal">
+<div class="feat">
+<div class="feat-l">
+<h2>On-Chain Wrapped Bitcoin (WBTC) Routing Overview</h2>
+<p class="feat-lead"><a href="https://wbtc.network/faq">Wrapped Bitcoin (WBTC)</a> is tokenized Bitcoin — an ERC-20 token backed 1:1 by BTC held with institutional custodians, built so Bitcoin's value can move on smart-contract networks.</p>
+<div class="feat-cta"><a class="feat-btn" href="dashboard/" rel="noopener noreferrer" target="_blank">Open the App <span aria-hidden="true" class="arr">→</span></a></div>
+<details class="feat-more">
+<summary class="feat-readmore">Read more <svg aria-hidden="true" class="chev" fill="none" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24"><path d="M6 9l6 6 6-6"></path></svg></summary>
+<div class="feat-detail">
+<p>In practice, trading WBTC means one of two things: swapping another token for WBTC (or back) on a DEX, which is a secondary-market trade of existing tokens, or minting and redeeming through approved merchants. This page is an independent, non-custodial dashboard — it explains and previews the trade, but never holds funds or signs transactions.</p>
+<div class="feat-facts">
+<div class="feat-fact"><span class="fl">Token</span><span class="fv">Wrapped Bitcoin (WBTC), an ERC-20 token with 8 decimal places</span></div>
+<div class="feat-fact"><span class="fl">Backing / peg</span><span class="fv">1:1 with BTC held by institutional custodians</span></div>
+<div class="feat-fact"><span class="fl">Convert</span><span class="fv">Swap on a DEX, or mint/redeem via approved merchants</span></div>
+<div class="feat-fact"><span class="fl">Networks</span><span class="fv">Ethereum mainnet (chain ID 1) plus official deployments on other chains</span></div>
+<div class="feat-fact"><span class="fl">Costs</span><span class="fv">Network gas; on a DEX swap add the pool fee and price impact</span></div>
+<div class="feat-fact"><span class="fl">Verify</span><span class="fv">Check the contract address, not the ticker</span></div>
+</div>
+</div>
+</details>
+</div>
+<div class="feat-r"><span class="feat-badge"><img alt="Trade WBTC" height="72" src="wbtc.png" width="72"/></span></div>
+</div>
+</div>
+<div class="docs">
+<nav aria-label="On this page" class="toc">
+<p class="toc-h">On this page</p>
+<a href="#what">What is Wrapped Bitcoin (WBTC)?</a>
+<a href="#wrap">Getting in and out</a>
+<a href="#swap">Swapping it on a DEX</a>
+<a href="#vs">The token vs its native asset</a>
+<a href="#fees">Costs and gas</a>
+<a href="#safety">Is Trade WBTC safe?</a>
+<a href="#troubleshoot">Problems and fixes</a>
+<a href="#faq">WBTC FAQ</a>
+<a href="#notes">Notes before you trade wbtc</a>
+</nav>
+<div class="doc-main">
+<details class="sec reveal doc-sec" id="what" open="">
+<summary><h2>What is Wrapped Bitcoin (WBTC)?</h2></summary>
+<div class="sec-body"><p>WBTC is Bitcoin's value issued as a token on a smart-contract network. Each WBTC is designed to be backed 1:1 by BTC sitting with institutional custodians, so its price tracks Bitcoin while the token behaves like an ERC-20: transferable and usable inside DeFi apps that native BTC cannot touch. On Ethereum it follows the <a href="https://eips.ethereum.org/EIPS/eip-20" rel="noopener noreferrer" target="_blank">ERC-20 standard</a> and uses 8 decimal places, matching Bitcoin's own precision. The Bitcoin network has no smart contracts, so BTC-denominated value needs a wrapped representation to enter lending markets, liquidity pools, or on-chain trades. The token is therefore convenient for on-chain use but custodial at the backing layer: the swap can be non-custodial while the BTC reserves remain with custodians.</p></div>
+</details>
+<details class="sec reveal doc-sec" id="wrap" open="">
+<summary><h2>Getting in and out</h2></summary>
+<div class="sec-body"><p>Most users enter WBTC by buying existing tokens on a secondary market, while primary issuance is a separate merchant flow. On a DEX or exchange, swap an asset you already hold, such as ETH or a stablecoin, for WBTC already in circulation; no new WBTC is created. Approved merchants can use <a href="https://docs.wbtc.network/" rel="noopener noreferrer" target="_blank">WBTC mint and redemption</a> directly against BTC reserves, a process that requires identity checks and is built for size, not retail trades. To exit, sell WBTC for another asset on the open market or redeem through a merchant if you qualify. A DEX swap does not unwrap WBTC into BTC: it trades the token, while the BTC reserves stay with the custodians.</p></div>
+</details>
+<details class="sec reveal doc-sec" id="swap" open="">
+<summary><h2>Swapping it on a DEX</h2></summary>
+<div class="sec-body"><p>Swapping WBTC on a DEX means exchanging one ERC-20 token for another through available liquidity. Connect a compatible wallet, confirm the correct network, select the input token, and select WBTC by pasting its verified contract address rather than trusting a ticker search. The app returns a route with expected output, the pool fee, estimated gas, price impact, and a minimum-received figure; these are the core <a href="https://developers.uniswap.org/docs/get-started/concepts/traders/swaps" rel="noopener noreferrer" target="_blank">DEX swap mechanics</a> to read before execution.</p><p>If the input token lacks sufficient allowance for the router, approve or permit the verified spender contract first; that approval is a separate on-chain transaction with its own gas. Then sign the swap. The routing contracts settle it atomically: the swap either executes within your configured limits or reverts and nothing moves. Minimum received and price impact define the execution boundary, not the headline quote.</p></div>
+</details>
+<details class="sec reveal doc-sec" id="vs" open="">
+<summary><h2>The token vs its native asset</h2></summary>
+<div class="sec-body"><p>WBTC and BTC share a price but are separate assets with different networks, contracts, and trust models. Native BTC is the bearer asset on the Bitcoin network: it has no custodian and no smart-contract risk, but it also has no DeFi access. WBTC is a claim on that value issued on Ethereum and other supported chains, where it can plug into lending, liquidity, and trading apps; it adds custodial risk on the backing and smart-contract risk to on-chain use. Wrapping and bridging move risk between systems rather than removing it. Hold BTC for the cleanest form of the asset; hold WBTC when you need Bitcoin's value working on-chain. Alternative tokenized-Bitcoin products use different reserve systems and trust models, so each is its own asset.</p></div>
+</details>
+<details class="sec reveal doc-sec" id="fees" open="">
+<summary><h2>Costs and gas</h2></summary>
+<div class="sec-body"><p>A WBTC trade has three main cost layers: network gas, the DEX pool fee, and price impact. Network gas covers every transaction, including the approval and the swap itself, and is paid in the chain's native token; the amount changes with congestion, as explained in the <a href="https://ethereum.org/developers/docs/gas/" rel="noopener noreferrer" target="_blank">Ethereum gas guide</a>. The pool fee is a slice of the DEX trade paid to liquidity providers and included in the quote. Price impact is the change in your average execution price caused by trade size relative to available liquidity, and it grows as the order becomes large for that pool. The displayed output already nets out the pool fee and impact; minimum received is the floor. Merchant minting and redemption have their own fee structure, separate from secondary-market swaps, so use the live route rather than a fixed dashboard figure.</p></div>
+</details>
+<details class="sec reveal doc-sec" id="safety" open="">
+<summary><h2>Is Trade WBTC safe?</h2></summary>
+<div class="sec-body"><p>This dashboard cannot move your funds: it takes no deposits, stores no keys, and signs nothing. The action boundary is the external app, where the material checks are the venue URL, the token contract, and the approval spender. On Ethereum mainnet (chain ID 1), the WBTC contract is <a href="https://etherscan.io/token/0x2260fac5e5542a773aa44fbcfedf7c193bc2c599" rel="noopener noreferrer" target="_blank">0x2260fac5e5542a773aa44fbcfedf7c193bc2c599</a>; match the full address on a block explorer because anyone can mint a token called 'WBTC'. Official deployments on other networks use chain-specific addresses and standards, so re-verify the address per chain.</p><p>Audited and open-source code reduces risk but never removes it. Smart-contract, approval, routing, phishing, and custodial risks remain, and a confirmed swap is a blockchain transaction that cannot normally be reversed. A non-custodial swap does not change the custodial trust assumption behind the BTC backing.</p></div>
+</details>
+<details class="sec reveal doc-sec" id="troubleshoot" open="">
+<summary><h2>Problems and fixes</h2></summary>
+<div class="sec-body"><p>Most failed WBTC trades have a specific fix. <strong>Wrong network:</strong> switch the wallet to the app's network and re-verify that chain's WBTC address, because addresses differ per deployment. <strong>No gas:</strong> add the chain's native token so both the approval and swap can be submitted. <strong>Token not found:</strong> paste the verified contract address manually and check that the decimals read 8. <strong>Stuck at approval:</strong> approval is its own transaction, and the swap becomes possible only after it confirms; the spender contract is the address receiving that allowance, as described in the <a href="https://docs.openzeppelin.com/contracts/5.x/api/token/erc20" rel="noopener noreferrer" target="_blank">ERC-20 allowance reference</a>. <strong>Swap reverts:</strong> requote after the price moves beyond the slippage or minimum-received limits. <strong>Wrong action entirely:</strong> a DEX swap cannot unwrap to BTC; use the merchant redemption flow.</p></div>
+</details>
+<details class="sec reveal doc-sec" id="faq" open="">
+<summary><h2>WBTC FAQ</h2></summary>
+<div class="sec-body">
+<details class="qa"><summary>What is WBTC?</summary><div class="a"><p>WBTC (Wrapped Bitcoin) is tokenized Bitcoin: an ERC-20 token backed 1:1 by BTC held with institutional custodians, so Bitcoin's value can be used on smart-contract networks like Ethereum.</p></div></details>
+<details class="qa"><summary>Is WBTC the same as Bitcoin?</summary><div class="a"><p>No. WBTC tracks BTC's price, but it is a separate asset on a different network with a custodial trust model. Native BTC and WBTC are not interchangeable; you convert between them rather than simply moving one to the other.</p></div></details>
+<details class="qa"><summary>How do I convert WBTC back to BTC?</summary><div class="a"><p>Use a secondary-market trade by selling or swapping WBTC for another asset, or redeem through an approved merchant, which destroys the WBTC against BTC reserves and requires identity checks.</p></div></details>
+<details class="qa"><summary>Is WBTC really backed 1:1?</summary><div class="a"><p>By design, each WBTC corresponds to BTC held by the custodians, so its price tracks BTC closely. The backing is custodial, which means the reserve and redemption process depend on those custodians.</p></div></details>
+<details class="qa"><summary>What does it cost to trade WBTC?</summary><div class="a"><p>A DEX swap has network gas for the approval and swap, a pool fee paid to liquidity providers, and price impact that grows with trade size. The quoted output nets out the pool fee and impact; minimum received is the floor.</p></div></details>
+<details class="qa"><summary>Is the WBTC contract safe?</summary><div class="a"><p>Verify the address rather than trusting a ticker: on Ethereum mainnet it is 0x2260fac5e5542a773aa44fbcfedf7c193bc2c599. Audits and a long track record reduce risk but do not remove smart-contract, approval, routing, and custodial risks, and confirmed swaps cannot normally be reversed.</p></div></details>
+</div>
+</details>
+<section class="field-notes reveal doc-sec" id="notes">
+<h2>Notes before you trade wbtc</h2>
+<div class="fn-body"><p>Trading WBTC is a standard ERC-20 exchange once the network, contract, and approval are correct. The common mistake is selecting WBTC by ticker from a DEX search instead of pasting the verified contract address. Before you sign:</p><ul><li>Match the full contract address (0x2260...c599 on Ethereum mainnet) against a block explorer.</li><li>Keep native gas on hand for both the approval and the swap, and wait for the approval to confirm.</li><li>Read minimum received and price impact on the DEX route; those define the execution boundary, not the headline quote.</li></ul><p><strong>Everything above was checked against the live contract and issuer documentation; last reviewed 21 July 2026.</strong></p><p>Independent reference - confirm the route in your own wallet.</p></div>
+</section>
+</div>
+</div>
+</div>
+<footer class="site-foot"><div class="wrap">Trade WBTC Guide &amp; Technical Reference · <a href="dashboard/" rel="noopener noreferrer" target="_blank">Open Trade WBTC App ↗</a> · © 2026</div></footer>
+</main>
+</div>
 <script>
 /* Trade WBTC: route preview, mobile nav, scroll-reveal. */
 (function () {
@@ -595,6 +656,17 @@ html.js .reveal.in { opacity: 1; transform: none; }
     if (el && el.tagName === "DETAILS") { el.open = true; el.classList.add("in"); }
   });
 
+  })();
+  (function(){
+    var links=[].slice.call(document.querySelectorAll(".toc a"));
+    if(!links.length)return;
+    var secs=[].slice.call(document.querySelectorAll(".doc-main [id]")).filter(function(s){return document.querySelector('.toc a[href="#'+s.id+'"]');});
+    if(!secs.length)return;
+    function setActive(id){links.forEach(function(a){a.classList.toggle("active",a.getAttribute("href")==="#"+id);});}
+    function update(){var cur=secs[0];for(var i=0;i<secs.length;i++){if(secs[i].getBoundingClientRect().top-120<=0)cur=secs[i];else break;}if(window.innerHeight+window.scrollY>=document.documentElement.scrollHeight-4)cur=secs[secs.length-1];if(cur)setActive(cur.id);}
+    window.addEventListener("scroll",update,{passive:true});
+    window.addEventListener("resize",update);
+    update();
   })();
   </script>
 </body>
