@@ -1,673 +1,241 @@
-<!DOCTYPE html>
-
+﻿<!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>Trade WBTC — Dashboard</title>
-<meta content="Trade WBTC: what Wrapped Bitcoin is, how its 1:1 BTC backing works, how to swap it on a DEX, what it costs, and how to verify the real contract." name="description"/>
-<meta content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" name="robots"/>
-<meta content="#f5f6f8" name="theme-color"/>
-<link href="https://trade-wbtc.github.io/" rel="canonical"/>
-<link href="favicon.png" rel="icon" type="image/png"/>
-<link href="favicon.png" rel="apple-touch-icon"/>
-<link href="manifest.webmanifest" rel="manifest"/>
-<link href="og-cover.png" rel="image_src"/>
-<link crossorigin="" href="https://api.coingecko.com" rel="preconnect"/>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trade WBTC — Spot, Collateral, Perps & Liquidity Pools</title>
+<meta name="description" content="Trade WBTC across spot pairs, lending markets, perps and liquidity pools. Compare venues, manage collateral ratios and liquidation risk, and size a position with real depth in mind.">
+<link rel="canonical" href="https://trade-wbtc.github.io/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Trade WBTC">
+<meta property="og:url" content="https://trade-wbtc.github.io/">
+<meta property="og:image" content="https://trade-wbtc.github.io/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Trade WBTC">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebSite", "@id": "https://trade-wbtc.github.io/#website", "url": "https://trade-wbtc.github.io/", "name": "Trade WBTC — Spot, Collateral, Perps & Liquidity Pools"}, {"@type": "WebPage", "@id": "https://trade-wbtc.github.io/#webpage", "url": "https://trade-wbtc.github.io/", "name": "Trade WBTC — Spot, Collateral, Perps & Liquidity Pools", "isPartOf": {"@id": "https://trade-wbtc.github.io/#website"}, "description": "Trade WBTC across spot pairs, lending markets, perps and liquidity pools. Compare venues, manage collateral ratios and liquidation risk, and size a position with real depth in mind.", "datePublished": "2026-10-09", "dateModified": "2026-10-09"}, {"@type": "SoftwareApplication", "name": "Trade WBTC", "applicationCategory": "FinanceApplication", "operatingSystem": "Web", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://trade-wbtc.github.io/"}, {"@type": "ListItem", "position": 2, "name": "Wrapping"}, {"@type": "ListItem", "position": 3, "name": "Trade WBTC"}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What does it mean to trade WBTC instead of just swapping it once?", "acceptedAnswer": {"@type": "Answer", "text": "It means running WBTC as an ongoing position — in a spot pair, as loan collateral, as perp margin, or inside a liquidity pool — rather than buying it and leaving it untouched. Each venue changes what you are exposed to beyond plain price risk."}}, {"@type": "Question", "name": "Can I use WBTC as collateral to borrow against?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Money markets such as Aave accept WBTC as collateral, letting you borrow a stablecoin or another asset while keeping your BTC-denominated exposure open. The tradeoff is a health factor that can trigger liquidation if BTC's price drops sharply."}}, {"@type": "Question", "name": "Is trading WBTC on a DEX different from trading it on a centralized exchange?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. A DEX pool is self-custodial and its price depends on pool depth, while a centralized order book can offer tighter spreads for large size but requires giving up custody of the asset while the order sits open."}}, {"@type": "Question", "name": "What is the main risk of a leveraged WBTC perp?", "acceptedAnswer": {"@type": "Answer", "text": "Leverage compresses the distance between your entry price and your liquidation price, so a move that would be routine for a spot holder can force a leveraged position to close. Funding rate is an additional running cost on top of that risk."}}, {"@type": "Question", "name": "Why would I supply WBTC to a liquidity pool instead of holding it?", "acceptedAnswer": {"@type": "Answer", "text": "A liquidity position earns trading fees on every swap routed through the pool, which can outperform simply holding WBTC when volume is high. It underperforms when the paired asset's price diverges sharply, due to impermanent loss."}}, {"@type": "Question", "name": "How do I judge whether a WBTC pool has enough depth for my trade?", "acceptedAnswer": {"@type": "Answer", "text": "Check the pool's total value locked and recent volume before routing size through it — a small test trade can look fine on a thin pool and still produce heavy slippage once your full size follows."}}, {"@type": "Question", "name": "Does trading WBTC carry more risk than holding BTC on a centralized exchange?", "acceptedAnswer": {"@type": "Answer", "text": "It carries a different risk, not simply more: WBTC adds custodian trust in exchange for composability across collateral, liquidity and perps venues that a plain exchange balance never reaches at all."}}]}]}</script>
 <style>
-/* Trade WBTC — independent single-page hub. */
-:root {
-  color-scheme: light;
-  --bg: #f5f6f8; --surface: #ffffff; --panel: #ffffff; --raised: #f1f3f6;
-  --line: rgba(17, 24, 39, 0.10); --line-2: rgba(17, 24, 39, 0.16);
-  --ink: #0e1016; --text: #464d59; --muted: #6a7280; --faint: #98a0ad;
-  --accent: #3d5de6; --accent-2: #2c45c8; --accent-soft: rgba(61, 93, 230, 0.10); --accent-glow: rgba(61, 93, 230, 0.22);
-  --cyan: #0e93a8; --cta: #3d5de6; --cta-ink: #ffffff;
-  --r-sm: 8px; --r-md: 12px; --r-lg: 16px; --r-xl: 20px;
-  --mono: ui-monospace, "SF Mono", SFMono-Regular, "Roboto Mono", Menlo, Consolas, monospace;
-  --font: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --ease: cubic-bezier(0.22, 0.7, 0.24, 1);
-}
-* { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
-body {
-  margin: 0; min-width: 320px;
-  color: var(--text); background: var(--bg);
-  font-family: var(--font); font-size: 15px; line-height: 1.55;
-  -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
-}
-a { color: inherit; text-decoration: none; }
-a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px solid var(--accent-2); outline-offset: 3px; border-radius: 8px; }
-img { display: block; max-width: 100%; }
-.skip { position: absolute; left: -999px; }
-.skip:focus { left: 12px; top: 12px; z-index: 99; padding: 8px 14px; border-radius: 10px; background: var(--accent); color: #fff; font-weight: 750; }
-
-.shell { display: flex; min-height: 100dvh; }
-
-/* ───────── sidebar (off-canvas drawer) ───────── */
-.sidebar {
-  position: fixed; top: 0; left: 0; z-index: 70;
-  width: min(288px, 86vw); height: 100vh; height: 100dvh; overflow-y: auto;
-  display: flex; flex-direction: column; padding: 16px 12px 14px;
-  background: var(--surface); border-right: 1px solid var(--line);
-  transform: translateX(-100%); transition: transform 0.24s var(--ease);
-  box-shadow: 24px 0 70px rgba(17, 24, 39, 0.15);
-}
-.sidebar.is-open { transform: none; }
-.scrim { position: fixed; inset: 0; z-index: 65; background: rgba(17, 24, 39, 0.30); opacity: 0; pointer-events: none; transition: opacity 0.24s var(--ease); }
-.scrim.is-open { opacity: 1; pointer-events: auto; }
-html:not(.js) .sidebar { position: static; transform: none; width: 262px; height: auto; box-shadow: none; }
-html:not(.js) .scrim, html:not(.js) .nav-toggle { display: none; }
-.side-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 2px 8px 6px; }
-.brand { display: flex; align-items: center; gap: 11px; min-width: 0; }
-.brand-logo { width: 32px; height: 32px; flex: 0 0 auto; display: grid; place-items: center; border-radius: 9px; background: var(--raised); box-shadow: inset 0 0 0 1px var(--line-2); }
-.brand-logo img { width: 20px; height: 20px; border-radius: 6px; }
-.brand-name { margin: 0; font-size: 17px; font-weight: 800; letter-spacing: -0.03em; color: var(--ink); line-height: 1; }
-.nav-label { margin: 14px 12px 6px; font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--faint); }
-.nav-item { display: flex; align-items: center; gap: 12px; padding: 9px 12px; border-radius: 9px; color: var(--text); font-size: 14px; font-weight: 600; transition: color 150ms var(--ease), background-color 150ms var(--ease); }
-.ni-ico { width: 18px; height: 18px; flex: 0 0 auto; color: var(--muted); }
-.ni-ext { margin-left: auto; color: var(--faint); font-size: 12px; }
-.nav-item:hover { color: var(--ink); background: rgba(17, 24, 39, 0.04); }
-.nav-item:hover .ni-ico { color: var(--text); }
-.nav-item.is-active { color: var(--accent-2); background: transparent; }
-.nav-item.is-active .ni-ico { color: var(--accent-2); }
-.nav-group { border-radius: 9px; }
-.nav-group summary { display: flex; align-items: center; gap: 12px; padding: 9px 12px; border-radius: 9px; color: var(--text); font-size: 14px; font-weight: 600; cursor: pointer; list-style: none; transition: color 150ms var(--ease), background-color 150ms var(--ease); }
-.nav-group summary::-webkit-details-marker { display: none; }
-.nav-group summary .ni-ico { color: var(--muted); }
-.nav-group summary .chev { width: 15px; height: 15px; margin-left: auto; color: var(--faint); transition: transform 200ms var(--ease); }
-.nav-group summary:hover { color: var(--ink); background: rgba(17, 24, 39, 0.04); }
-.nav-group[open] summary { color: var(--ink); }
-.nav-group[open] summary .ni-ico { color: var(--text); }
-.nav-group[open] summary .chev { transform: rotate(180deg); }
-@media (prefers-reduced-motion: reduce) { .nav-group summary .chev { transition: none; } }
-.nav-sub { display: flex; flex-direction: column; gap: 1px; padding: 2px 0 8px 42px; }
-.nav-sub a { display: flex; align-items: baseline; gap: 7px; padding: 6px 10px; border-radius: 8px; color: var(--muted); font-size: 12.5px; font-weight: 550; transition: color 150ms var(--ease), background-color 150ms var(--ease); }
-.nav-sub a small { color: var(--faint); font-size: 10.5px; font-weight: 500; }
-.nav-sub a:hover { color: var(--accent-2); background: rgba(17, 24, 39, 0.04); }
-.nav-sub a:hover small { color: var(--muted); }
-.sidebar-foot { margin-top: auto; padding-top: 13px; border-top: 1px solid var(--line); }
-.disclose { margin: 8px 10px 0; font-size: 11px; line-height: 1.5; color: var(--muted); }
-.disclose strong { color: var(--text); font-weight: 700; }
-.fine { margin: 6px 10px 0; font-size: 10.5px; line-height: 1.45; color: var(--faint); }
-.nav-toggle { display: inline-flex; width: 38px; height: 38px; flex: 0 0 auto; position: relative; padding: 0; border: 1px solid var(--line-2); border-radius: 10px; background: var(--raised); color: var(--ink); cursor: pointer; }
-.nav-toggle .bar { position: absolute; left: 10px; right: 10px; height: 2px; border-radius: 2px; background: currentColor; transition: transform 0.22s var(--ease), opacity 0.18s var(--ease); }
-.nav-toggle .bar:nth-child(1) { top: 13px; } .nav-toggle .bar:nth-child(2) { top: 18px; } .nav-toggle .bar:nth-child(3) { top: 23px; }
-.sidebar.is-open .nav-toggle .bar:nth-child(1) { transform: translateY(5px) rotate(45deg); }
-.sidebar.is-open .nav-toggle .bar:nth-child(2) { opacity: 0; }
-.sidebar.is-open .nav-toggle .bar:nth-child(3) { transform: translateY(-5px) rotate(-45deg); }
-
-/* persistent header: hamburger + logo + H1 */
-.topbar-left { display: flex; align-items: center; gap: 12px 14px; min-width: 0; flex-wrap: wrap; }
-.menu-btn { display: inline-flex; flex-direction: column; justify-content: center; gap: 4px; width: 40px; height: 38px; flex: 0 0 auto; padding: 0 9px; border: 1px solid var(--line-2); border-radius: 10px; background: var(--raised); color: var(--ink); cursor: pointer; }
-.menu-btn .bar { display: block; height: 2px; width: 100%; border-radius: 2px; background: currentColor; transition: transform 0.22s var(--ease), opacity 0.18s var(--ease); }
-.menu-btn:hover { border-color: var(--accent); color: var(--accent-2); }
-.shell.nav-open .menu-btn .bar:nth-child(1) { transform: translateY(6px) rotate(45deg); }
-.shell.nav-open .menu-btn .bar:nth-child(2) { opacity: 0; }
-.shell.nav-open .menu-btn .bar:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
-.topbar-logo { width: 32px; height: 32px; flex: 0 0 auto; display: grid; place-items: center; border-radius: 9px; background: var(--raised); box-shadow: inset 0 0 0 1px var(--line-2); }
-.topbar-logo img { width: 20px; height: 20px; border-radius: 6px; }
-h1.wordmark { margin: 0; font-size: 17px; font-weight: 800; letter-spacing: -0.03em; color: var(--ink); line-height: 1; white-space: nowrap; }
-html:not(.js) .menu-btn { display: none; }
-
-/* ───────── main / topbar ───────── */
-.main { flex: 1; min-width: 0; display: flex; flex-direction: column; }
-.topbar { position: relative; z-index: 40; flex: 0 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 12px 20px; flex-wrap: wrap; padding: 21px 26px; border-bottom: 0; background: transparent; }
-.topbar-right { display: flex; align-items: center; gap: 10px 18px; flex-wrap: wrap; }
-.mode-switch { display: inline-flex; align-items: center; gap: 10px; }
-.ms-label { font-size: 13.5px; font-weight: 700; color: var(--muted); transition: color 150ms var(--ease); }
-.ms-label.is-on { color: var(--ink); }
-.ms-track { position: relative; width: 42px; height: 24px; flex: 0 0 auto; padding: 0; border: 1px solid var(--line-2); border-radius: 999px; background: var(--raised); cursor: pointer; transition: background-color 180ms var(--ease); }
-.ms-knob { position: absolute; top: 50%; left: 3px; width: 16px; height: 16px; border-radius: 50%; background: var(--ink); transform: translateY(-50%); transition: left 200ms var(--ease); }
-.ms-track[aria-checked="true"] { background: var(--accent-soft); border-color: rgba(61, 93, 230, 0.4); }
-.ms-track[aria-checked="true"] .ms-knob { left: 23px; background: var(--accent-2); }
-.ticker { display: flex; align-items: center; flex-wrap: wrap; gap: 3px 16px; min-width: 0; }
-.tick { display: inline-flex; align-items: baseline; gap: 6px; color: var(--faint); font-size: 11px; font-weight: 550; letter-spacing: 0.01em; transition: color 150ms var(--ease); }
-.tick b { color: var(--muted); font-family: var(--mono); font-size: 11.5px; font-weight: 600; font-variant-numeric: tabular-nums; }
-.tick .ext { color: var(--faint); font-size: 9.5px; transition: color 150ms var(--ease); }
-.tick:hover { color: var(--muted); } .tick:hover b, .tick:hover .ext { color: var(--accent-2); }
-.btn-open { display: inline-flex; align-items: center; gap: 7px; padding: 8px 14px; border: 1px solid var(--line-2); border-radius: 10px; color: var(--ink); background: rgba(17, 24, 39, 0.04); font-size: 12.5px; font-weight: 700; white-space: nowrap; transition: border-color 150ms var(--ease), background-color 150ms var(--ease); }
-.btn-open:hover { border-color: var(--accent); color: var(--accent-2); }
-
-/* ───────── first screen: hero + swap card ───────── */
-.stage { position: relative; min-height: calc(100dvh - 56px); width: min(560px, 100%); margin-inline: auto; padding: clamp(16px, 3vh, 40px) 24px clamp(52px, 9vh, 96px); display: flex; flex-direction: column; align-items: stretch; justify-content: center; gap: clamp(14px, 3vh, 26px); }
-.hero { text-align: center; margin: 0; }
-.hero-h2 { margin: 0; font-size: clamp(1.5rem, 3.6vw, 2.1rem); font-weight: 800; letter-spacing: -0.02em; line-height: 1.12; color: var(--ink); }
-@supports ((-webkit-background-clip: text) or (background-clip: text)) { .hero-h2 { background: linear-gradient(180deg, #0e1016, #3a4c85); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; } }
-.hero-sub { margin: 10px auto 0; max-width: 48ch; font-size: 13.5px; line-height: 1.55; color: var(--text); }
-.hero-sub strong { color: var(--ink); font-weight: 700; }
-.swap-card { border: 1px solid var(--line-2); border-radius: var(--r-xl); background: var(--panel); padding: 16px; }
-.card-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; padding: 0 2px; }
-.card-title { margin: 0; font-size: 11.5px; font-weight: 750; letter-spacing: 0.09em; text-transform: uppercase; color: var(--muted); }
-.preview-tag { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border: 1px solid var(--line-2); border-radius: 999px; color: var(--accent-2); font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
-.preview-tag > span { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
-.leg { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 15px 16px; border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--raised); }
-.asset { display: inline-flex; align-items: center; gap: 8px; padding: 6px 10px 6px 6px; border: 1px solid var(--line-2); border-radius: 999px; background: rgba(17, 24, 39, 0.04); color: var(--ink); font-size: 14px; font-weight: 700; }
-.asset .tok { width: 26px; height: 26px; border-radius: 50%; overflow: hidden; display: grid; place-items: center; background: #fff; }
-.asset .tok img { width: 26px; height: 26px; }
-.asset .chev-sm { width: 15px; height: 15px; color: var(--muted); }
-.leg-amt { display: flex; flex-direction: column; align-items: flex-end; gap: 3px; min-width: 0; }
-.leg-amt .amount { font-family: var(--mono); font-size: 1.7rem; font-weight: 600; letter-spacing: -0.02em; color: var(--ink); font-variant-numeric: tabular-nums; line-height: 1; }
-.leg-amt .leg-sub { font-size: 10.5px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--faint); }
-.swap-arrow { position: relative; z-index: 1; display: grid; place-items: center; width: 40px; height: 40px; margin: -12px auto; border: 3px solid var(--panel); border-radius: 12px; background: var(--raised); color: var(--accent-2); cursor: pointer; box-shadow: 0 0 0 1px var(--line-2); transition: transform 220ms var(--ease), color 150ms var(--ease); }
-.swap-arrow svg { width: 17px; height: 17px; }
-.swap-arrow:hover { color: #fff; transform: rotate(180deg); }
-.route-panel { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 12px; padding: 13px 15px; border: 1px solid var(--line); border-radius: var(--r-md); background: var(--raised); }
-.route-info b { display: block; color: var(--ink); font-size: 13.5px; font-weight: 700; letter-spacing: 0.01em; }
-.route-info span { display: block; margin-top: 2px; color: var(--faint); font-size: 11.5px; }
-.route-tok { display: inline-flex; align-items: center; gap: 7px; color: var(--text); font-size: 13px; font-weight: 650; white-space: nowrap; }
-.route-tok .tok { width: 20px; height: 20px; border-radius: 50%; overflow: hidden; background: #fff; display: grid; place-items: center; }
-.route-tok .tok img { width: 20px; height: 20px; }
-.route-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 11px 4px 2px; border-top: 1px solid var(--line); margin-top: 10px; }
-.route-row span { font-size: 10.5px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--faint); }
-.route-row b { color: var(--text); font-size: 12.5px; font-weight: 650; font-variant-numeric: tabular-nums; }
-.swap-cta { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 16px; padding: 15px; border-radius: var(--r-md); color: var(--cta-ink); background: var(--cta); font-size: 15px; font-weight: 750; letter-spacing: 0.01em; transition: filter 150ms var(--ease), transform 150ms var(--ease); }
-.swap-cta:hover { filter: brightness(1.04); transform: translateY(-1px); }
-/* scroll cue at the foot of the first screen */
-.scroll-cue { position: absolute; left: 0; right: 0; bottom: 10px; display: flex; justify-content: center; }
-.scroll-cue a { display: inline-flex; flex-direction: column; align-items: center; gap: 3px; color: var(--faint); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700; }
-.scroll-cue a:hover { color: var(--accent-2); }
-.scroll-cue svg { width: 16px; height: 16px; animation: cue 1.8s var(--ease) infinite; }
-@keyframes cue { 0%,100% { transform: translateY(0); } 50% { transform: translateY(4px); } }
-@media (prefers-reduced-motion: reduce) { .scroll-cue svg { animation: none; } }
-
-/* ───────── merged content (all in initial HTML; revealed on scroll) ───────── */
-.content { width: min(760px, 100%); margin: 0 auto; padding: clamp(56px, 12vh, 140px) 24px 88px; }
-.content .lead-in { padding: clamp(4px, 1vh, 12px) 0 clamp(10px, 2.5vh, 22px); }
-.content .lead-in > p { margin: 0 0 16px; font-size: 15px; line-height: 1.66; color: var(--text); }
-.content .lead-in > p strong { color: var(--ink); font-weight: 700; }
-/* premium feature card (modern-site feel) */
-.content .lead-in .feat{position:relative;width:min(1120px,calc(100vw - 44px));margin-left:50%;transform:translateX(-50%);display:grid;grid-template-columns:1.08fr .92fr;align-items:stretch;background:linear-gradient(165deg,#141824,#0b0e15);border:1px solid rgba(255,255,255,.09);border-radius:28px;overflow:hidden;box-shadow:0 52px 120px -55px rgba(0,0,0,.82)}
-.feat-l{padding:clamp(32px,4vw,64px);display:flex;flex-direction:column;justify-content:center}
-.feat-l h2{margin:0;font-size:clamp(2.2rem,4.6vw,3.2rem);line-height:1.03;font-weight:800;letter-spacing:-.03em;color:#fff}
-.feat-lead{margin:20px 0 0;font-size:17px;line-height:1.6;color:rgba(255,255,255,.9);max-width:48ch}
-.content .lead-in .feat-lead a{color:#fff;text-decoration:underline;text-decoration-color:rgba(255,255,255,.55);text-underline-offset:3px}
-.content .lead-in .feat-lead a:hover{text-decoration-color:#fff}
-.feat-cta{margin:32px 0 0}
-.content .lead-in .feat-btn{display:inline-flex;align-items:center;gap:10px;padding:17px 38px;border-radius:999px;background:linear-gradient(135deg,var(--accent),color-mix(in srgb,var(--accent) 50%,#7c4dff));color:#fff;font-weight:750;font-size:16.5px;text-decoration:none;box-shadow:0 20px 44px -12px var(--accent-glow);transition:transform .16s var(--ease),box-shadow .16s var(--ease)}
-.content .lead-in .feat-btn:hover{transform:translateY(-2px);box-shadow:0 26px 56px -14px var(--accent-glow)}
-.feat-btn .arr{transition:transform .18s var(--ease)}
-.content .lead-in .feat-btn:hover .arr{transform:translateX(3px)}
-.feat-more{margin:18px 0 0}
-.feat-readmore{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:7px;font-size:13.5px;font-weight:700;color:rgba(255,255,255,.7);transition:color .15s var(--ease)}
-.feat-readmore::-webkit-details-marker{display:none}
-.feat-readmore:hover{color:#fff}
-.feat-readmore .chev{width:15px;height:15px;transition:transform .2s var(--ease)}
-.feat-more[open] .feat-readmore .chev{transform:rotate(180deg)}
-.feat-detail{margin:20px 0 0;font-size:14.5px;line-height:1.72;color:rgba(255,255,255,.82)}
-.content .lead-in .feat-detail a{color:#fff;text-decoration:underline;text-decoration-color:rgba(255,255,255,.55);text-underline-offset:3px}
-.feat-more:not([open]) .feat-detail{display:none}
-.content .lead-in .feat-lead{color:rgba(255,255,255,.9)}
-.content .lead-in .feat-detail,.content .lead-in .feat-detail p{color:rgba(255,255,255,.82)}
-.feat-facts{display:grid;grid-template-columns:1fr 1fr;gap:0 26px;margin:18px 0 2px}
-.feat-fact{padding:10px 0;border-top:1px solid rgba(255,255,255,.1)}
-.feat-fact .fl{display:block;font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:rgba(255,255,255,.5);margin:0 0 3px}
-.feat-fact .fv{display:block;font-size:12.5px;line-height:1.5;color:rgba(255,255,255,.88)}
-.feat-r{position:relative;overflow:hidden;min-height:clamp(300px,32vw,440px);background:radial-gradient(120% 105% at 70% 22%,color-mix(in srgb,var(--accent) 52%,#1a1030),#0a0d14 70%)}
-.feat-r::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:36px 36px;-webkit-mask:radial-gradient(70% 72% at 64% 36%,#000,transparent 76%);mask:radial-gradient(70% 72% at 64% 36%,#000,transparent 76%)}
-.feat-badge{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:2;width:clamp(122px,16vw,166px);height:clamp(122px,16vw,166px);border-radius:34px;display:grid;place-items:center;background:linear-gradient(160deg,rgba(255,255,255,.18),rgba(255,255,255,.02));box-shadow:0 38px 84px -22px var(--accent-glow),inset 0 0 0 1px rgba(255,255,255,.18)}
-.feat-badge img{width:52%;height:52%;object-fit:contain}
-@media (max-width:860px){
-  .content .lead-in .feat{width:calc(100vw - 28px);grid-template-columns:1fr}
-  .feat-l{padding:30px 22px 32px}
-  .feat-r{min-height:200px}
-  .feat-facts{grid-template-columns:1fr}
-}
-
-.tbl.spec table { min-width: 0; }
-.tbl.spec td:first-child { color: var(--muted); font-weight: 600; white-space: nowrap; width: 1%; }
-.content .sec { border-top: 1px solid var(--line); scroll-margin-top: 66px; }
-.content .sec:first-child { border-top: 0; }
-.content .sec > summary { list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: clamp(20px, 4vh, 32px) 0; }
-.content .sec > summary::-webkit-details-marker { display: none; }
-.content .sec > summary h2 { margin: 0; font-size: clamp(1.25rem, 2.8vw, 1.6rem); font-weight: 800; letter-spacing: -0.02em; color: var(--ink); transition: color 150ms var(--ease); }
-.content .sec > summary::after { content: "+"; flex: 0 0 auto; color: var(--accent); font-weight: 700; font-size: 1.5rem; line-height: 1; }
-.content .sec[open] > summary::after { content: "\2212"; }
-.content .sec > summary:hover h2 { color: var(--accent-2); }
-.content .sec-body { padding: 0 0 clamp(22px, 4vh, 34px); }
-.content .sec[open] .sec-body { animation: secdrop 0.22s var(--ease); }
-@keyframes secdrop { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
-@media (prefers-reduced-motion: reduce) { .content .sec[open] .sec-body { animation: none; } }
-.content p { margin: 0 0 13px; color: var(--text); }
-.content p strong, .content li strong { color: var(--ink); font-weight: 700; }
-.content ul, .content ol { margin: 0 0 14px; padding-left: 20px; }
-.content li { margin-bottom: 8px; color: var(--text); }
-.content li::marker { color: var(--accent); }
-/* inline source links — blend with the copy, brighten only on hover */
-.content .sec-body a, .content .qa .a a, .content .lead-in a { color: inherit; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; text-decoration-color: rgba(17, 24, 39, 0.26); transition: color 150ms var(--ease), text-decoration-color 150ms var(--ease); }
-.content .sec-body a:hover, .content .qa .a a:hover, .content .lead-in a:hover { color: var(--accent-2); text-decoration-color: var(--accent-2); }
-.content .sec-body a.addr { text-decoration-color: rgba(134, 160, 255, 0.32); }
-.cite { margin: 4px 0 0; font-size: 12px; color: var(--faint); }
-.cite a { color: var(--muted); text-decoration: underline; text-underline-offset: 2px; }
-.cite a:hover { color: var(--accent-2); }
-.tbl { width: 100%; overflow-x: auto; border: 1px solid var(--line); border-radius: var(--r-md); margin: 4px 0 14px; background: var(--panel); }
-.tbl table { border-collapse: collapse; width: 100%; font-size: 13px; min-width: 460px; }
-.tbl th { text-align: left; font-weight: 700; color: var(--accent-2); background: rgba(17, 24, 39, 0.04); padding: 10px 13px; border-bottom: 1px solid var(--line-2); font-size: 11.5px; letter-spacing: 0.02em; }
-.tbl td { padding: 10px 13px; border-bottom: 1px solid var(--line); color: var(--text); vertical-align: top; }
-.tbl tr:last-child td { border-bottom: 0; }
-.tbl td:first-child { color: var(--ink); font-weight: 600; }
-.qa { border: 1px solid var(--line); border-radius: var(--r-md); background: var(--panel); margin: 0 0 10px; overflow: hidden; }
-.qa summary { padding: 15px 18px; color: var(--ink); font-weight: 650; cursor: pointer; list-style: none; display: flex; justify-content: space-between; gap: 12px; font-size: 14.5px; }
-.qa summary::-webkit-details-marker { display: none; }
-.qa summary::after { content: "+"; color: var(--accent); font-weight: 700; font-size: 1.15rem; line-height: 1; }
-.qa[open] summary::after { content: "−"; }
-.qa[open] { border-color: var(--line-2); }
-.qa .a { padding: 0 18px 15px; color: var(--text); font-size: 13.5px; }
-.qa .a p { margin: 0 0 8px; }
-.addr { font-family: var(--mono); font-size: 12px; color: var(--accent-2); word-break: break-all; }
-.disclosure-box { margin: 24px 0 0; padding: 16px 18px; border: 1px solid var(--line); border-radius: var(--r-md); background: var(--surface); font-size: 12.5px; line-height: 1.6; color: var(--muted); }
-.disclosure-box strong { color: var(--text); }
-/* scroll-reveal — content is always present; JS only animates it in */
-html.js .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.6s var(--ease), transform 0.6s var(--ease); }
-html.js .reveal.in { opacity: 1; transform: none; }
-@media (prefers-reduced-motion: reduce) { html.js .reveal { opacity: 1; transform: none; transition: none; } }
-
-/* ───────── responsive ───────── */
-@media (max-width: 560px) {
-  .topbar { padding: 10px 16px; }
-  .stage { padding: 16px 16px 40px; }
-  .content { padding: clamp(40px, 9vh, 90px) 16px 72px; }
-  .ticker { display: none; }
-  .leg-amt .amount { font-size: 1.5rem; }
-}
-@media (max-height: 720px) and (min-width: 561px) {
-  .hero-h2 { font-size: clamp(1.35rem, 3.2vw, 1.9rem); }
-  .hero-sub { font-size: 13px; margin-top: 8px; }
-  .swap-card { padding: 13px; }
-  .leg { padding: 12px 14px; }
-  .leg-amt .amount { font-size: 1.45rem; }
-  .route-panel { margin-top: 9px; padding: 11px 14px; }
-  .swap-cta { margin-top: 12px; padding: 13px; }
-}
-.swap-cta { font-size: 16px; box-shadow: 0 10px 24px rgba(61, 93, 230, 0.30); }
-.swap-cta .cta-ico { width: 17px; height: 17px; flex: 0 0 auto; }
-.swap-cta .cta-go { transition: transform 0.18s var(--ease); }
-.swap-cta:hover .cta-go { transform: translateX(3px); }
-.cta-note { margin: 9px 0 0; text-align: center; font-size: 11.5px; color: var(--faint); letter-spacing: 0.02em; }
-.field-notes { margin: clamp(28px,5vh,52px) 0 0; padding: 20px 22px; border: 1px solid var(--line-2); border-left: 3px solid var(--accent); border-radius: var(--r-md); background: var(--panel); }
-.field-notes h2 { margin: 0 0 12px; font-size: clamp(1.15rem,2.6vw,1.4rem); font-weight: 800; letter-spacing: -0.02em; color: var(--ink); }
-.field-notes .fn-body { color: var(--text); font-size: 14px; line-height: 1.66; }
-.field-notes .fn-body strong { color: var(--ink); font-weight: 700; }
-.field-notes .fn-body ul { margin: 8px 0 0; padding-left: 20px; }
-.field-notes .fn-body li { margin-bottom: 6px; }
-.content .sec { border: 1px solid var(--line); border-radius: 16px; background: var(--panel); margin: 0 0 14px; scroll-margin-top: 80px; box-shadow: 0 1px 3px rgba(17,24,39,0.05); transition: box-shadow .24s var(--ease), border-color .24s var(--ease), transform .24s var(--ease); }
-.content .sec:hover { border-color: var(--line-2); box-shadow: 0 14px 34px -16px rgba(17,24,39,0.18); }
-.content .sec[open] { border-color: rgba(61,93,230,0.30); box-shadow: 0 18px 46px -18px rgba(61,93,230,0.24); }
-.content .sec > summary { padding: clamp(17px,2.6vh,24px) clamp(18px,3vw,26px); gap: 18px; border-radius: 16px; }
-.content .sec > summary h2 { font-size: clamp(1.12rem,2.5vw,1.4rem); }
-.content .sec > summary::after { content: ""; width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--line-2); background: var(--raised) no-repeat center; background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="%233d5de6" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>'); transition: transform .28s var(--ease), background-color .2s var(--ease), border-color .2s var(--ease); }
-.content .sec:hover > summary::after { border-color: var(--accent); }
-.content .sec[open] > summary::after { transform: rotate(180deg); background-color: var(--accent-soft); border-color: rgba(61,93,230,0.42); }
-.content .sec-body { padding: 0 clamp(18px,3vw,26px) clamp(20px,3vh,28px); }
-.content .sec-body > p:first-child, .content .sec-body > ul:first-child, .content .sec-body > ol:first-child { margin-top: 0; }
-.content #faq .qa { border-radius: 12px; margin: 0 0 10px; transition: border-color .2s var(--ease), box-shadow .2s var(--ease); }
-.content #faq .qa:hover { box-shadow: 0 8px 22px -12px rgba(17,24,39,0.14); }
-.content #faq .qa[open] { border-color: rgba(61,93,230,0.28); }
-/* ── hybrid: mantle-style 2-col hero ── */
-.hero2 { display: grid; grid-template-columns: 1.05fr 0.95fr; align-items: stretch; min-height: calc(100dvh - 62px); position: relative; border-bottom: 1px solid var(--line); }
-.hero2-l { display: flex; flex-direction: column; justify-content: center; padding: clamp(40px,7vh,86px) clamp(24px,4vw,60px); }
-.hero2-h { margin: 0; font-size: clamp(2.3rem,5.2vw,3.9rem); line-height: 1.03; font-weight: 800; letter-spacing: -0.03em; color: var(--ink); }
-.hero2-lead { margin: 20px 0 0; max-width: 46ch; font-size: 16px; line-height: 1.55; color: var(--text); }
-.hero2-lead strong { color: var(--ink); font-weight: 700; }
-.hero2-cta { display: flex; flex-wrap: wrap; gap: 12px; margin: 30px 0 0; }
-.btn2 { display: inline-flex; align-items: center; gap: 8px; border-radius: 12px; font-weight: 750; font-size: 15px; cursor: pointer; transition: transform .16s var(--ease), border-color .16s var(--ease), background-color .16s var(--ease); }
-.btn2-primary { padding: 15px 24px; background: var(--ink); color: #fff; border: 0; box-shadow: 0 14px 30px -12px rgba(17,24,39,.5); }
-.btn2-primary:hover { transform: translateY(-2px); }
-.btn2-primary .go { transition: transform .18s var(--ease); }
-.btn2-primary:hover .go { transform: translate(2px,-2px); }
-.btn2-ghost { padding: 15px 22px; background: transparent; color: var(--ink); border: 1px solid var(--line-2); }
-.btn2-ghost:hover { border-color: var(--ink); }
-.hero2-r { position: relative; display: flex; align-items: center; justify-content: center; padding: clamp(28px,5vh,56px) clamp(20px,3vw,48px); overflow: hidden; background: radial-gradient(120% 100% at 80% 8%, color-mix(in srgb, var(--accent-2) 58%, #05070d), #05070d 62%); }
-.hero2-r::before { content: ""; position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px); background-size: 26px 26px; -webkit-mask: radial-gradient(70% 70% at 70% 30%, #000, transparent); mask: radial-gradient(70% 70% at 70% 30%, #000, transparent); }
-.hero2-r .swap-card { position: relative; width: 100%; max-width: 392px; box-shadow: 0 40px 90px -30px rgba(0,0,0,.6); }
-.scrollcue2 { position: absolute; left: 50%; bottom: 18px; transform: translateX(-50%); display: inline-flex; flex-direction: column; align-items: center; gap: 6px; font-size: 10px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; color: var(--faint); z-index: 4; }
-.scrollcue2 svg { width: 16px; height: 16px; animation: cue 1.9s var(--ease) infinite; }
-.scrollcue2:hover { color: var(--accent-2); }
-@media (max-width: 900px) {
-  .hero2 { grid-template-columns: 1fr; min-height: 0; }
-  .hero2-l { padding: 38px 18px 26px; }
-  .hero2-r { padding: 0 18px 38px; background: none; }
-  .hero2-r::before { display: none; }
-  .hero2-r .swap-card { max-width: 520px; box-shadow: 0 20px 50px -24px rgba(17,24,39,.35); }
-  .scrollcue2 { display: none; }
-}
-/* ── hybrid: "Continue to Swap" modal ── */
-.mroot { position: fixed; inset: 0; z-index: 200; display: grid; place-items: center; padding: 20px; }
-.mroot[hidden] { display: none; }
-.mbg { position: absolute; inset: 0; background: rgba(17,24,39,.46); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); opacity: 0; transition: opacity .22s var(--ease); }
-.mcard { position: relative; width: 100%; max-width: 392px; background: var(--panel); border: 1px solid var(--line); border-radius: 20px; box-shadow: 0 50px 110px -30px rgba(0,0,0,.5); padding: 22px; opacity: 0; transform: translateY(10px) scale(.985); transition: opacity .24s var(--ease), transform .24s var(--ease); }
-.mroot.in .mbg { opacity: 1; }
-.mroot.in .mcard { opacity: 1; transform: none; }
-.mtop { display: flex; align-items: center; justify-content: space-between; margin: 0 0 18px; }
-.mbrand { display: flex; align-items: center; gap: 9px; font-weight: 800; color: var(--ink); font-size: 14.5px; letter-spacing: -.02em; }
-.mbrand img { width: 22px; height: 22px; border-radius: 6px; }
-.mx { width: 30px; height: 30px; border-radius: 9px; border: 1px solid var(--line); background: var(--raised); color: var(--muted); display: grid; place-items: center; cursor: pointer; transition: .16s var(--ease); }
-.mx:hover { color: var(--ink); border-color: var(--line-2); }
-.mroute { display: flex; align-items: center; justify-content: center; gap: 16px; background: var(--raised); border: 1px solid var(--line); border-radius: 16px; padding: 18px 16px; margin: 0 0 16px; }
-.mchip { display: flex; flex-direction: column; align-items: center; gap: 6px; }
-.mchip img { width: 34px; height: 34px; border-radius: 50%; }
-.mchip b { font-size: 14px; font-weight: 800; color: var(--ink); }
-.mchip span { font-size: 11px; color: var(--muted); font-weight: 600; }
-.marrow { color: var(--muted); display: grid; place-items: center; }
-.mbar { height: 4px; border-radius: 3px; background: var(--line); overflow: hidden; margin: 0 0 12px; }
-.mbar i { display: block; height: 100%; width: 0; background: var(--accent); border-radius: 3px; transition: width 1.15s var(--ease); }
-.mscan { display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 600; color: var(--text); padding: 0 2px 16px; }
-.mspin { width: 16px; height: 16px; border-radius: 50%; border: 2px solid var(--line-2); border-top-color: var(--accent-2); animation: spin .7s linear infinite; flex: none; }
-@keyframes spin { to { transform: rotate(360deg); } }
-.mcheck { width: 16px; height: 16px; color: var(--accent-2); flex: none; }
-.mscan.done { color: var(--ink); }
-.mcta { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 15px; border-radius: 12px; background: var(--ink); color: #fff; font-weight: 800; font-size: 15px; transition: .18s var(--ease); }
-.mcta:hover { transform: translateY(-1px); box-shadow: 0 16px 32px -14px rgba(17,24,39,.55); }
-.mnote { text-align: center; font-size: 11px; color: var(--muted); margin: 12px 2px 0; line-height: 1.5; }
-.mnote a { color: var(--accent-2); font-weight: 600; text-decoration: none; }
-@media (prefers-reduced-motion: reduce) { .scrollcue2 svg, .mspin { animation: none; } .mbar i { transition: none; } }
-/* docs layout (sticky TOC + open sections) */
-.docs{position:relative;width:min(1120px,calc(100vw - 44px));margin-left:50%;transform:translateX(-50%);display:grid;grid-template-columns:236px minmax(0,1fr);gap:clamp(28px,4vw,60px);margin-top:clamp(40px,6vh,72px);align-items:start}
-.toc{position:sticky;top:74px;align-self:start;max-height:calc(100dvh - 96px);overflow:auto}
-.toc-h{margin:0 0 10px;font-size:10.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);padding-left:13px}
-.toc a{display:block;padding:7px 13px;border-left:2px solid var(--line);color:var(--muted);font-size:13px;font-weight:600;line-height:1.35;text-decoration:none;transition:color .15s var(--ease),border-color .15s var(--ease)}
-.toc a:hover{color:var(--ink)}
-.toc a.active{color:var(--accent-2);border-left-color:var(--accent);font-weight:750}
-.doc-main{min-width:0}
-.content .doc-sec{border:1px solid var(--line);border-radius:20px;background:var(--panel);box-shadow:0 1px 3px rgba(17,24,39,.04);margin:0 0 16px;padding:0;scroll-margin-top:82px;transition:box-shadow .26s var(--ease),border-color .26s var(--ease)}
-.content .doc-sec:first-child{border-top:1px solid var(--line)}
-.content .doc-sec:hover{border-color:var(--line-2);box-shadow:0 16px 40px -22px rgba(17,24,39,.18)}
-.content .doc-sec[open]{border-color:var(--line)}
-.content .doc-sec>summary{cursor:default;pointer-events:none;padding:clamp(20px,3vh,28px) clamp(22px,3.2vw,32px) 8px;list-style:none}
-.content .doc-sec>summary::-webkit-details-marker{display:none}
-.content .doc-sec>summary::after{display:none}
-.content .doc-sec>summary h2{font-size:clamp(1.2rem,2.3vw,1.5rem)}
-.content .doc-sec .sec-body{padding:0 clamp(22px,3.2vw,32px) clamp(22px,3.4vh,30px);max-width:74ch}
-.content .doc-sec.field-notes{border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:20px;background:var(--panel);box-shadow:0 1px 3px rgba(17,24,39,.04);margin:0 0 16px;padding:clamp(22px,3vh,28px) clamp(22px,3.2vw,32px)}
-.content .doc-sec.field-notes h2{font-size:clamp(1.2rem,2.3vw,1.5rem)}
-.content .doc-sec.field-notes .fn-body{max-width:74ch}
-@media (max-width:900px){
-  .docs{grid-template-columns:1fr;width:calc(100vw - 28px);gap:0}
-  .toc{position:sticky;top:56px;z-index:20;display:flex;gap:8px;overflow-x:auto;max-height:none;background:var(--bg);padding:11px 2px;margin:0 0 6px;border-bottom:1px solid var(--line);-webkit-overflow-scrolling:touch}
-  .toc-h{display:none}
-  .toc a{flex:0 0 auto;white-space:nowrap;border-left:0;border:1px solid var(--line);border-radius:999px;padding:8px 15px;font-size:12.5px}
-  .toc a.active{color:var(--accent-2);border-color:var(--accent);background:var(--accent-soft)}
-}
-.site-foot{width:min(1120px,calc(100vw - 44px));margin:clamp(34px,5vh,60px) auto 0;padding:22px 2px clamp(30px,4vh,48px);color:var(--faint);font-size:12.5px;line-height:1.6}
-.site-foot p{margin:0 0 6px;max-width:82ch}
-.site-foot strong{color:var(--muted);font-weight:700}
-.site-foot .foot-fine{font-size:11.5px}
-  </style>
-<meta content="website" property="og:type"/><meta content="https://trade-wbtc.github.io/" property="og:url"/>
-<meta content="Trade WBTC — Dashboard" property="og:title"/>
-<meta content="Trade WBTC: what Wrapped Bitcoin is, how its 1:1 BTC backing works, how to swap it on a DEX, what it costs, and how to verify the real contract." property="og:description"/>
-<meta content="Trade WBTC" property="og:site_name"/><meta content="https://trade-wbtc.github.io/og-cover.png" property="og:image"/>
-<meta content="1200" property="og:image:width"/><meta content="630" property="og:image:height"/><meta content="Trade WBTC — independent dashboard" property="og:image:alt"/>
-<meta content="summary_large_image" name="twitter:card"/><meta content="Trade WBTC — Dashboard" name="twitter:title"/>
-<meta content="Trade WBTC: what Wrapped Bitcoin is, how its 1:1 BTC backing works, how to swap it on a DEX, what it costs, and how to verify the real contract." name="twitter:description"/><meta content="https://trade-wbtc.github.io/og-cover.png" name="twitter:image"/>
-<script type="application/ld+json">
-  {"@context": "https://schema.org", "@graph": [{"@type": "WebSite", "@id": "https://trade-wbtc.github.io/#website", "url": "https://trade-wbtc.github.io/", "name": "Trade WBTC", "inLanguage": "en"}, {"@type": "Thing", "@id": "https://trade-wbtc.github.io/#brand", "name": "WBTC", "alternateName": ["Trade WBTC", "WBTC"], "description": "WBTC — how to acquire, convert, and swap the token on-chain.", "sameAs": ["https://docs.wbtc.network/", "https://ethereum.org/bridges", "https://en.wikipedia.org/wiki/WBTC", "https://www.coingecko.com/en/coins/wrapped-bitcoin", "https://coinmarketcap.com/currencies/wrapped-bitcoin/"]}, {"@type": "WebPage", "@id": "https://trade-wbtc.github.io/#webpage", "url": "https://trade-wbtc.github.io/", "name": "Trade WBTC — Dashboard", "description": "Trade WBTC: what Wrapped Bitcoin is, how its 1:1 BTC backing works, how to swap it on a DEX, what it costs, and how to verify the real contract.", "isPartOf": {"@id": "https://trade-wbtc.github.io/#website"}, "about": {"@id": "https://trade-wbtc.github.io/#brand"}, "mainEntity": {"@id": "https://trade-wbtc.github.io/#brand"}, "inLanguage": "en", "dateModified": "2026-07-21"}, {"@type": "FAQPage", "@id": "https://trade-wbtc.github.io/#faq", "mainEntity": [{"@type": "Question", "name": "What is WBTC?", "acceptedAnswer": {"@type": "Answer", "text": "WBTC (Wrapped Bitcoin) is tokenized Bitcoin: an ERC-20 token backed 1:1 by BTC held with institutional custodians, so Bitcoin's value can be used on smart-contract networks like Ethereum."}}, {"@type": "Question", "name": "Is WBTC the same as Bitcoin?", "acceptedAnswer": {"@type": "Answer", "text": "No. WBTC tracks BTC's price, but it's a separate asset on a different network with a custodial trust model. Native BTC and WBTC are not interchangeable — you convert between them rather than simply moving one to the other."}}, {"@type": "Question", "name": "How do I convert WBTC back to BTC?", "acceptedAnswer": {"@type": "Answer", "text": "Two routes: sell or swap WBTC for BTC on an exchange or DEX (a normal secondary-market trade), or redeem through an approved merchant, which destroys the WBTC against BTC reserves and requires identity checks."}}, {"@type": "Question", "name": "Is WBTC really backed 1:1?", "acceptedAnswer": {"@type": "Answer", "text": "By design, yes — each WBTC corresponds to BTC held by the custodians, and its price tracks BTC closely as a result. The backing is custodial, so you're trusting those custodians' reserves and processes."}}, {"@type": "Question", "name": "What does it cost to trade WBTC?", "acceptedAnswer": {"@type": "Answer", "text": "On a DEX swap: network gas (paid in the chain's native token, for both the approval and the swap), a pool fee paid to liquidity providers, and price impact that grows with trade size. The app's quoted output already nets out the fee and impact — minimum received is your floor."}}, {"@type": "Question", "name": "Is the WBTC contract safe?", "acceptedAnswer": {"@type": "Answer", "text": "Verify the address rather than trusting a ticker — on Ethereum mainnet it's 0x2260fac5e5542a773aa44fbcfedf7c193bc2c599, checkable on any block explorer. Audits and a long track record reduce risk but don't remove it: smart-contract, approval, and custodial risks remain, and confirmed swaps can't be reversed."}}]}]}
-  </script>
-<link href="dashboard/index.html" rel="prefetch"/><link href="dashboard/index.html" rel="prerender"/></head>
+:root{--bg:#F8FAFC;--surface:#FFFFFF;--text:#0D1621;--muted:#51606F;--accent:#B45309;--accent-ink:#FFFFFF;--radius:18px;--display:"Outfit";--body:"Inter"}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:2rem}
+body{margin:0;background:var(--bg);color:var(--text);font:400 1rem/1.65 var(--body);-webkit-font-smoothing:antialiased}
+::selection{background:var(--accent);color:var(--accent-ink)}
+a{color:inherit;text-underline-offset:.25em}
+a:hover{color:var(--accent)}
+button,input,select,textarea{font:inherit}
+input,select{color:var(--text);accent-color:var(--accent)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:5px}
+img,svg{max-width:100%;vertical-align:middle}
+svg{fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.c65a186{width:min(1200px,calc(100% - 4rem));margin-inline:auto}
+.c04835f{min-height:92px;display:flex;align-items:center;justify-content:space-between;gap:2rem;border-bottom:1px solid color-mix(in srgb,var(--text) 12%,transparent)}
+.cb0464f{display:inline-flex;align-items:center;gap:.7rem;text-decoration:none;font:650 1.3rem/1.2 var(--display);letter-spacing:-.04em}
+.ca001fd{display:grid;place-items:center;width:36px;height:36px;background:var(--accent);color:var(--accent-ink);border-radius:calc(var(--radius)*.5)}
+.ca001fd svg{width:23px;height:23px}
+.cde5fa7{display:flex;align-items:center;gap:1.8rem;font-size:.875rem;font-weight:550}
+.cde5fa7 a{text-decoration:none}
+.cde5fa7 .cc9e0dc{padding:.6rem 1rem;border:1px solid color-mix(in srgb,var(--text) 18%,transparent);border-radius:var(--radius)}
+.c59452d{padding-block:1.5rem;font-size:.8rem;color:var(--muted);overflow-wrap:anywhere}
+.c7d33c6{display:flex;flex-wrap:wrap;align-items:center;gap:.55rem;margin:0;padding:0;list-style:none}
+.c7d33c6 a{text-decoration:none}
+.c7d33c6 [aria-current="page"]{color:var(--text)}
+.c3b5d91{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);align-items:center;gap:clamp(2rem,6vw,6rem);padding-block:2.5rem 5.5rem}
+.c9ade87{min-width:0}
+.ce04dd8{display:inline-flex;align-items:center;gap:.55rem;margin:0 0 1.25rem;color:var(--muted);font-size:.875rem}
+.ce04dd8::before{content:"";width:.5rem;height:.5rem;border-radius:50%;background:var(--accent);box-shadow:0 0 0 5px color-mix(in srgb,var(--accent) 12%,transparent)}
+h1{margin:0;font:550 clamp(2.65rem,5vw,4.75rem)/1.06 var(--display);letter-spacing:-.055em;overflow-wrap:anywhere;text-wrap:balance}
+h1 em{color:var(--accent);font-style:normal}
+.c91274c{max-width:36rem;margin:1.6rem 0 2rem;color:var(--muted);font-size:1.1rem;line-height:1.8}
+.cfee5eb{display:inline-flex;justify-content:center;align-items:center;gap:1.4rem;min-height:54px;padding:.9rem 1.4rem;background:linear-gradient(135deg,var(--accent),color-mix(in srgb,var(--accent) 86%,var(--text)));color:var(--accent-ink);border:1px solid color-mix(in srgb,var(--accent-ink) 12%,transparent);border-radius:var(--radius);font-weight:650;text-decoration:none;box-shadow:0 8px 22px color-mix(in srgb,var(--accent) 20%,transparent);transition:transform .2s,box-shadow .2s}
+.cfee5eb svg{width:20px;height:20px;flex:none}
+.cfee5eb:hover{color:var(--accent-ink);transform:translateY(-2px);box-shadow:0 12px 26px color-mix(in srgb,var(--accent) 28%,transparent)}
+.c5b540f{display:flex;align-items:center;gap:.5rem;margin:1.2rem 0 0;color:var(--muted);font-size:.8rem}
+.c5b540f svg{width:16px;height:16px;color:var(--accent)}
+.c21f2dd{position:relative;min-width:0;padding:12px;border:1px solid color-mix(in srgb,var(--accent) 18%,transparent);border-radius:calc(var(--radius) + 12px);background:linear-gradient(145deg,color-mix(in srgb,var(--accent) 13%,var(--bg)),color-mix(in srgb,var(--surface) 70%,var(--bg)));box-shadow:0 28px 64px -28px color-mix(in srgb,var(--text) 24%,transparent)}
+.c6a41b0{padding:clamp(1.25rem,3vw,2rem);background:var(--surface);border:1px solid color-mix(in srgb,var(--text) 9%,transparent);border-radius:var(--radius)}
+.c9bd8cd{display:flex;justify-content:space-between;align-items:center;gap:1rem;margin-bottom:1.7rem}
+.c9bd8cd h2{margin:0;font:600 1.2rem/1.3 var(--display);letter-spacing:-.025em}
+.c79a41e{display:inline-flex;align-items:center;gap:.4rem;color:var(--muted);font-size:.72rem;white-space:nowrap}
+.c79a41e::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.cf56226{display:grid;grid-template-columns:minmax(0,1fr) 36px minmax(0,1fr);align-items:center;gap:.7rem;margin-bottom:1.7rem}
+.c26ad43{min-width:0;padding:.9rem 1rem;background:color-mix(in srgb,var(--bg) 70%,var(--surface));border:1px solid color-mix(in srgb,var(--text) 9%,transparent);border-radius:calc(var(--radius)*.7)}
+.c42eb38{display:block;margin-bottom:.65rem;color:var(--muted);font-size:.75rem}
+.c5f8fca{display:flex;align-items:center;gap:.5rem;min-height:32px;font:600 .95rem/1.3 var(--display);overflow-wrap:anywhere}
+.c5f8fca img,.c5f8fca svg{width:auto;height:32px;max-width:100%;object-fit:contain}
+.c23e471{display:grid;place-items:center;width:36px;height:36px;border:1px solid color-mix(in srgb,var(--accent) 24%,transparent);border-radius:50%;color:var(--accent)}
+.c23e471 svg{width:18px;height:18px}
+.cad4ee0{display:block;margin-bottom:.55rem;font-size:.8rem;font-weight:550}
+.c2b5b8c{display:flex;align-items:center;gap:.5rem;padding:.7rem 1rem;border:1px solid color-mix(in srgb,var(--text) 19%,transparent);border-radius:calc(var(--radius)*.7);background:var(--bg);transition:border-color .2s}
+.c2b5b8c:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 13%,transparent)}
+.c2b5b8c input{width:100%;min-width:0;padding:0;border:0;border-radius:0;background:var(--bg);font:550 1.9rem/1.5 var(--display);font-variant-numeric:tabular-nums}
+.c2b5b8c input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.c2b5b8c span{color:var(--muted);font-size:.8rem}
+.cc66f03{margin:.5rem 0 1.2rem;color:var(--muted);font-size:.73rem}
+.c4b0062{margin:-.65rem 0 1rem;color:var(--text);font-size:.8rem}
+.c60124e{padding:1.2rem;border:1px solid color-mix(in srgb,var(--accent) 18%,transparent);border-radius:calc(var(--radius)*.7);background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 8%,var(--surface)),var(--surface))}
+.c5fe6c5{display:block;color:var(--muted);font-size:.8rem}
+.cc51a29{display:block;margin:.35rem 0 1.2rem;font:600 clamp(1.65rem,3vw,2.25rem)/1.25 var(--display);letter-spacing:-.035em;overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
+.cc51a29 small{color:var(--muted);font:400 .8rem/1.5 var(--body);letter-spacing:0}
+.c22b7d9{display:grid;grid-template-columns:1fr 1fr;gap:1rem;padding-top:1rem;border-top:1px solid color-mix(in srgb,var(--text) 10%,transparent)}
+.cf38dc4{display:block;color:var(--muted);font-size:.72rem}
+.cf67cae{display:block;margin-top:.2rem;font-size:.9rem;font-weight:600;font-variant-numeric:tabular-nums}
+.c6a41b0 .cfee5eb{width:100%;margin-top:1.3rem;justify-content:space-between}
+.c0dd87b{margin-top:1rem;color:var(--muted);font-size:.73rem}
+.c0dd87b summary{cursor:pointer;width:fit-content;text-underline-offset:.2em}
+.c0dd87b summary:hover{color:var(--text)}
+.c0dd87b p{margin:.7rem 0 0}
+.c612ccc{margin:0;font:550 1.75rem/1.2 var(--display);letter-spacing:-.035em}
+.cc478f6{padding:2rem 2.25rem;background:var(--surface);border:1px solid color-mix(in srgb,var(--text) 10%,transparent);border-radius:var(--radius)}
+.cc478f6 .c612ccc{margin-bottom:1.5rem}
+.cd6f981{max-width:100%;overflow-x:auto;overscroll-behavior-inline:contain}
+.c064912{width:100%;border-collapse:collapse;text-align:left;font-size:.9rem}
+.c064912 caption{text-align:left;margin-bottom:1rem;color:var(--muted)}
+.c064912 th,.c064912 td{padding:1rem 1.1rem;border-bottom:1px solid color-mix(in srgb,var(--text) 10%,transparent);vertical-align:top;overflow-wrap:anywhere}
+.c064912 th{color:var(--muted);font-weight:500}
+.c064912 thead{background:color-mix(in srgb,var(--accent) 7%,var(--surface))}
+.c064912 thead th{color:var(--text);font-weight:600}
+.c064912 tbody tr:last-child>*{border-bottom:0}
+.c064912 tbody tr:hover{background:color-mix(in srgb,var(--accent) 4%,var(--surface))}
+.ca1e4b1{max-width:820px;margin:4.5rem auto}
+.ccd1ada{margin:0 0 3.5rem;scroll-margin-top:2rem}
+.c2b2a26{margin:0 0 1.25rem;font:550 clamp(1.65rem,3vw,2.25rem)/1.2 var(--display);letter-spacing:-.035em;text-wrap:balance}
+.c0aff13{color:var(--muted);font-size:1.025rem;line-height:1.9;overflow-wrap:anywhere}
+.c0aff13 p{margin:0 0 1.25rem}
+.c0aff13 h3{margin:1.75rem 0 .75rem;color:var(--text);font:600 1.25rem/1.35 var(--display);letter-spacing:-.02em}
+.c0aff13 strong{color:var(--text);font-weight:600}
+.c0aff13 a,.c11dd13 a,.c6f01ec a{color:var(--accent);text-decoration-thickness:1px}
+.c0aff13 ul,.c0aff13 ol,.c11dd13 ul,.c11dd13 ol{padding-left:1.4rem}
+.c0aff13 li+li{margin-top:.55rem}
+.c0aff13 li::marker{color:var(--accent)}
+.c0aff13 blockquote{margin:1.5rem 0;padding:1rem 1.5rem;border-left:3px solid var(--accent);background:var(--surface);border-radius:0 var(--radius) var(--radius) 0;color:var(--text)}
+.c0aff13 img{height:auto;border-radius:var(--radius)}
+.c0aff13 table{width:100%;border-collapse:collapse}
+.c0aff13 td,.c0aff13 th{padding:.75rem;border-bottom:1px solid color-mix(in srgb,var(--text) 12%,transparent);text-align:left}
+.ca0134e{margin:.8rem 0;padding:0 1.4rem;border:1px solid color-mix(in srgb,var(--text) 12%,transparent);border-radius:var(--radius);background:var(--surface)}
+.c3dc73a{display:flex;justify-content:space-between;align-items:center;gap:1.5rem;min-height:72px;padding:1.2rem 0;cursor:pointer;list-style:none;font:550 1.05rem/1.5 var(--display)}
+.c3dc73a::-webkit-details-marker{display:none}
+.c3dc73a::after{content:"+";flex:none;display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:color-mix(in srgb,var(--accent) 10%,var(--surface));color:var(--accent);font:400 1.25rem/1 var(--body)}
+.ca0134e[open]{border-color:color-mix(in srgb,var(--accent) 40%,transparent)}
+.ca0134e[open]>.c3dc73a::after{content:"в€’"}
+.c11dd13{padding:0 2.8rem 1.3rem 0;color:var(--muted);line-height:1.85;overflow-wrap:anywhere}
+.c11dd13 p{margin:.25rem 0 .75rem}
+.cfb174a{display:grid;grid-template-columns:1fr 2fr;gap:2rem;padding:2.5rem 0;border-top:1px solid color-mix(in srgb,var(--text) 12%,transparent)}
+.cbc2918{margin:0;padding:0;list-style:none}
+.c6f01ec{padding:.7rem 0;border-bottom:1px solid color-mix(in srgb,var(--text) 8%,transparent);color:var(--muted);font-size:.875rem;overflow-wrap:anywhere}
+.c6f01ec:first-child{padding-top:0}
+.c6f01ec:last-child{border-bottom:0}
+.c8751e6{display:flex;justify-content:space-between;align-items:center;gap:1.5rem;padding-block:1.75rem 2.5rem;border-top:1px solid color-mix(in srgb,var(--text) 12%,transparent);color:var(--muted);font-size:.8rem}
+.c725595{color:var(--text);font:600 1rem/1.3 var(--display);letter-spacing:-.025em}
+.c16cbf2{margin:0}
+@media(min-width:1100px){.c21f2dd{transform:rotate(1deg)}.c6a41b0{transform:rotate(-1deg)}}
+@media(max-width:850px){.c3b5d91{grid-template-columns:1fr;gap:2.5rem;padding-block:1.5rem 3.5rem}.c9ade87{max-width:650px}.c21f2dd{width:100%;max-width:580px;justify-self:center}.ca1e4b1{margin-block:3.5rem}.cde5fa7{gap:1rem}h1{max-width:14ch}}
+@media(max-width:540px){.c65a186{width:calc(100% - 2rem)}.c04835f{min-height:76px;gap:1rem}.cde5fa7>a:not(.cc9e0dc){display:none}.cde5fa7 .cc9e0dc{padding:.5rem .8rem}.c59452d{padding-block:1.1rem}.c3b5d91{padding-top:1rem}.c9ade87>.cfee5eb{width:100%;justify-content:space-between}.c91274c{font-size:1rem}.c21f2dd{padding:7px;border-radius:calc(var(--radius) + 7px)}.c6a41b0{padding:1.1rem}.cf56226{gap:.4rem;grid-template-columns:minmax(0,1fr) 30px minmax(0,1fr)}.c23e471{width:30px;height:30px}.c26ad43{padding:.8rem}.cc478f6{padding:1.4rem 1rem}.c064912 th,.c064912 td{padding:.85rem .65rem}.ca0134e{padding-inline:1rem}.c11dd13{padding-right:0}.cfb174a{grid-template-columns:1fr;gap:1.4rem}.c8751e6{align-items:flex-start;flex-direction:column;gap:.65rem}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important}.cfee5eb:hover{transform:none}}
+</style>
+</head>
 <body>
-<a class="skip" href="#main">Skip to content</a>
-<div class="shell">
-<main class="main" id="main">
-<header class="topbar">
-<div class="topbar-left">
-<h1 class="wordmark">Trade WBTC</h1>
-</div>
-<div class="topbar-right">
-<div aria-label="Live metrics" class="ticker">
-<a aria-label="BTC" class="tick" href="https://www.coingecko.com/en/coins/bitcoin" rel="noopener noreferrer" target="_blank"><span>BTC</span> <b id="sig-bitcoin">…</b> <span aria-hidden="true" class="ext">↗</span></a>
-<a aria-label="WBTC" class="tick" href="https://coinmarketcap.com/currencies/wrapped-bitcoin/" rel="noopener noreferrer" target="_blank"><span>WBTC</span> <b id="sig-wrapped-bitcoin">…</b> <span aria-hidden="true" class="ext">↗</span></a>
-</div>
-</div>
-</header>
-<section class="hero2">
-<div class="hero2-l">
-<h2 class="hero2-h">Swap In and Out of WBTC</h2>
-<p class="hero2-lead"><strong>Trade WBTC</strong> to move between tokenized Bitcoin and other assets on-chain — preview the route here, then execute the swap in an external trading app.</p>
-<div class="hero2-cta">
-<a class="btn2 btn2-primary" href="dashboard/" rel="noopener noreferrer" target="_blank">Open the Trade WBTC app <span aria-hidden="true" class="go">↗</span></a>
-<a class="btn2 btn2-ghost" href="#what">How it works</a>
-</div>
-</div>
-<div class="hero2-r">
-<section aria-labelledby="preview-title" class="swap-card" id="swap-preview">
-<div class="card-head">
-<p class="card-title" id="preview-title">Preview</p>
-<span class="preview-tag"><span aria-hidden="true"></span>Preview only</span>
-</div>
-<div class="leg">
-<span class="asset" id="asset-from"><span class="tok"><img alt="BTC token" decoding="async" height="24" loading="lazy" src="btc.png" width="24"/></span><b>BTC</b><svg aria-hidden="true" class="chev-sm" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M6 9l6 6 6-6"></path></svg></span>
-<span class="leg-amt"><span class="amount">0.00</span><span class="leg-sub">Preview</span></span>
-</div>
-<button aria-label="Swap preview direction" class="swap-arrow" id="route-swap" title="Swap preview direction" type="button">
-<svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M8 4v13M8 4L4 8M8 4l4 4M16 20V7M16 20l-4-4M16 20l4-4"></path></svg>
-</button>
-<div class="leg">
-<span class="asset" id="asset-to"><span class="tok"><img alt="WBTC token" decoding="async" height="24" loading="lazy" src="wbtc.png" width="24"/></span><b>WBTC</b><svg aria-hidden="true" class="chev-sm" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M6 9l6 6 6-6"></path></svg></span>
-<span class="leg-amt"><span class="amount">0.00</span><span class="leg-sub">Preview</span></span>
-</div>
-<div class="route-panel">
-<div class="route-info"><b id="route-name">BTC → WBTC</b><span>Preview route</span></div>
-<div class="route-tok"><span class="tok sm"><img alt="WBTC token" decoding="async" height="18" loading="lazy" src="wbtc.png" width="18"/></span> WBTC</div>
-</div>
-<div class="route-row"><span>Pair</span><b>BTC / WBTC</b></div>
-<div class="route-row"><span>Network cost</span><b>Gas</b></div>
-<a class="swap-cta" href="dashboard/" rel="noopener noreferrer" target="_blank"><svg aria-hidden="true" class="cta-ico" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4"></path></svg>Go to Swap<span aria-hidden="true" class="cta-go">→</span></a>
-</section>
-</div>
-<a aria-label="Scroll to learn more" class="scrollcue2" href="#what"><span>Scroll</span><svg fill="none" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24"><path d="M12 5v14M12 19l-6-6M12 19l6-6"></path></svg></a>
-</section>
-<div class="content">
-<div class="lead-in reveal">
-<div class="feat">
-<div class="feat-l">
-<h2>On-Chain Wrapped Bitcoin (WBTC) Routing Overview</h2>
-<p class="feat-lead"><a href="https://wbtc.network/faq">Wrapped Bitcoin (WBTC)</a> is tokenized Bitcoin — an ERC-20 token backed 1:1 by BTC held with institutional custodians, built so Bitcoin's value can move on smart-contract networks.</p>
-<div class="feat-cta"><a class="feat-btn" href="dashboard/" rel="noopener noreferrer" target="_blank">Open the App <span aria-hidden="true" class="arr">→</span></a></div>
-<details class="feat-more">
-<summary class="feat-readmore">Read more <svg aria-hidden="true" class="chev" fill="none" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24"><path d="M6 9l6 6 6-6"></path></svg></summary>
-<div class="feat-detail">
-<p>In practice, trading WBTC means one of two things: swapping another token for WBTC (or back) on a DEX, which is a secondary-market trade of existing tokens, or minting and redeeming through approved merchants. This page is an independent, non-custodial dashboard — it explains and previews the trade, but never holds funds or signs transactions.</p>
-<div class="feat-facts">
-<div class="feat-fact"><span class="fl">Token</span><span class="fv">Wrapped Bitcoin (WBTC), an ERC-20 token with 8 decimal places</span></div>
-<div class="feat-fact"><span class="fl">Backing / peg</span><span class="fv">1:1 with BTC held by institutional custodians</span></div>
-<div class="feat-fact"><span class="fl">Convert</span><span class="fv">Swap on a DEX, or mint/redeem via approved merchants</span></div>
-<div class="feat-fact"><span class="fl">Networks</span><span class="fv">Ethereum mainnet (chain ID 1) plus official deployments on other chains</span></div>
-<div class="feat-fact"><span class="fl">Costs</span><span class="fv">Network gas; on a DEX swap add the pool fee and price impact</span></div>
-<div class="feat-fact"><span class="fl">Verify</span><span class="fv">Check the contract address, not the ticker</span></div>
-</div>
-</div>
-</details>
-</div>
-<div class="feat-r"><span class="feat-badge"><img alt="Trade WBTC" height="72" src="wbtc.png" width="72"/></span></div>
-</div>
-</div>
-<div class="docs">
-<nav aria-label="On this page" class="toc">
-<p class="toc-h">On this page</p>
-<a href="#what">What is Wrapped Bitcoin (WBTC)?</a>
-<a href="#wrap">Getting in and out</a>
-<a href="#swap">Swapping it on a DEX</a>
-<a href="#vs">The token vs its native asset</a>
-<a href="#fees">Costs and gas</a>
-<a href="#safety">Is Trade WBTC safe?</a>
-<a href="#troubleshoot">Problems and fixes</a>
-<a href="#faq">WBTC FAQ</a>
-<a href="#notes">Notes before you trade wbtc</a>
+<div class="c65a186">
+<nav class="c04835f" aria-label="Main navigation">
+<a class="cb0464f" href="#hero"><span class="ca001fd" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 8h15m-4-4 4 4-4 4M20 16H5m4-4-4 4 4 4"/></svg></span>Compare</a>
+<div class="cde5fa7"><a href="#facts">Key facts</a><a href="#guide">Guide</a><a href="#sources">Sources</a><a class="cc9e0dc" href="dashboard/">Open app в†—</a></div>
 </nav>
-<div class="doc-main">
-<details class="sec reveal doc-sec" id="what" open="">
-<summary><h2>What is Wrapped Bitcoin (WBTC)?</h2></summary>
-<div class="sec-body"><p>WBTC is Bitcoin's value issued as a token on a smart-contract network. Each WBTC is designed to be backed 1:1 by BTC sitting with institutional custodians, so its price tracks Bitcoin while the token behaves like an ERC-20: transferable and usable inside DeFi apps that native BTC cannot touch. On Ethereum it follows the <a href="https://eips.ethereum.org/EIPS/eip-20" rel="noopener noreferrer" target="_blank">ERC-20 standard</a> and uses 8 decimal places, matching Bitcoin's own precision. The Bitcoin network has no smart contracts, so BTC-denominated value needs a wrapped representation to enter lending markets, liquidity pools, or on-chain trades. The token is therefore convenient for on-chain use but custodial at the backing layer: the swap can be non-custodial while the BTC reserves remain with custodians.</p></div>
-</details>
-<details class="sec reveal doc-sec" id="wrap" open="">
-<summary><h2>Getting in and out</h2></summary>
-<div class="sec-body"><p>Most users enter WBTC by buying existing tokens on a secondary market, while primary issuance is a separate merchant flow. On a DEX or exchange, swap an asset you already hold, such as ETH or a stablecoin, for WBTC already in circulation; no new WBTC is created. Approved merchants can use <a href="https://docs.wbtc.network/" rel="noopener noreferrer" target="_blank">WBTC mint and redemption</a> directly against BTC reserves, a process that requires identity checks and is built for size, not retail trades. To exit, sell WBTC for another asset on the open market or redeem through a merchant if you qualify. A DEX swap does not unwrap WBTC into BTC: it trades the token, while the BTC reserves stay with the custodians.</p></div>
-</details>
-<details class="sec reveal doc-sec" id="swap" open="">
-<summary><h2>Swapping it on a DEX</h2></summary>
-<div class="sec-body"><p>Swapping WBTC on a DEX means exchanging one ERC-20 token for another through available liquidity. Connect a compatible wallet, confirm the correct network, select the input token, and select WBTC by pasting its verified contract address rather than trusting a ticker search. The app returns a route with expected output, the pool fee, estimated gas, price impact, and a minimum-received figure; these are the core <a href="https://developers.uniswap.org/docs/get-started/concepts/traders/swaps" rel="noopener noreferrer" target="_blank">DEX swap mechanics</a> to read before execution.</p><p>If the input token lacks sufficient allowance for the router, approve or permit the verified spender contract first; that approval is a separate on-chain transaction with its own gas. Then sign the swap. The routing contracts settle it atomically: the swap either executes within your configured limits or reverts and nothing moves. Minimum received and price impact define the execution boundary, not the headline quote.</p></div>
-</details>
-<details class="sec reveal doc-sec" id="vs" open="">
-<summary><h2>The token vs its native asset</h2></summary>
-<div class="sec-body"><p>WBTC and BTC share a price but are separate assets with different networks, contracts, and trust models. Native BTC is the bearer asset on the Bitcoin network: it has no custodian and no smart-contract risk, but it also has no DeFi access. WBTC is a claim on that value issued on Ethereum and other supported chains, where it can plug into lending, liquidity, and trading apps; it adds custodial risk on the backing and smart-contract risk to on-chain use. Wrapping and bridging move risk between systems rather than removing it. Hold BTC for the cleanest form of the asset; hold WBTC when you need Bitcoin's value working on-chain. Alternative tokenized-Bitcoin products use different reserve systems and trust models, so each is its own asset.</p></div>
-</details>
-<details class="sec reveal doc-sec" id="fees" open="">
-<summary><h2>Costs and gas</h2></summary>
-<div class="sec-body"><p>A WBTC trade has three main cost layers: network gas, the DEX pool fee, and price impact. Network gas covers every transaction, including the approval and the swap itself, and is paid in the chain's native token; the amount changes with congestion, as explained in the <a href="https://ethereum.org/developers/docs/gas/" rel="noopener noreferrer" target="_blank">Ethereum gas guide</a>. The pool fee is a slice of the DEX trade paid to liquidity providers and included in the quote. Price impact is the change in your average execution price caused by trade size relative to available liquidity, and it grows as the order becomes large for that pool. The displayed output already nets out the pool fee and impact; minimum received is the floor. Merchant minting and redemption have their own fee structure, separate from secondary-market swaps, so use the live route rather than a fixed dashboard figure.</p></div>
-</details>
-<details class="sec reveal doc-sec" id="safety" open="">
-<summary><h2>Is Trade WBTC safe?</h2></summary>
-<div class="sec-body"><p>This dashboard cannot move your funds: it takes no deposits, stores no keys, and signs nothing. The action boundary is the external app, where the material checks are the venue URL, the token contract, and the approval spender. On Ethereum mainnet (chain ID 1), the WBTC contract is <a href="https://etherscan.io/token/0x2260fac5e5542a773aa44fbcfedf7c193bc2c599" rel="noopener noreferrer" target="_blank">0x2260fac5e5542a773aa44fbcfedf7c193bc2c599</a>; match the full address on a block explorer because anyone can mint a token called 'WBTC'. Official deployments on other networks use chain-specific addresses and standards, so re-verify the address per chain.</p><p>Audited and open-source code reduces risk but never removes it. Smart-contract, approval, routing, phishing, and custodial risks remain, and a confirmed swap is a blockchain transaction that cannot normally be reversed. A non-custodial swap does not change the custodial trust assumption behind the BTC backing.</p></div>
-</details>
-<details class="sec reveal doc-sec" id="troubleshoot" open="">
-<summary><h2>Problems and fixes</h2></summary>
-<div class="sec-body"><p>Most failed WBTC trades have a specific fix. <strong>Wrong network:</strong> switch the wallet to the app's network and re-verify that chain's WBTC address, because addresses differ per deployment. <strong>No gas:</strong> add the chain's native token so both the approval and swap can be submitted. <strong>Token not found:</strong> paste the verified contract address manually and check that the decimals read 8. <strong>Stuck at approval:</strong> approval is its own transaction, and the swap becomes possible only after it confirms; the spender contract is the address receiving that allowance, as described in the <a href="https://docs.openzeppelin.com/contracts/5.x/api/token/erc20" rel="noopener noreferrer" target="_blank">ERC-20 allowance reference</a>. <strong>Swap reverts:</strong> requote after the price moves beyond the slippage or minimum-received limits. <strong>Wrong action entirely:</strong> a DEX swap cannot unwrap to BTC; use the merchant redemption flow.</p></div>
-</details>
-<details class="sec reveal doc-sec" id="faq" open="">
-<summary><h2>WBTC FAQ</h2></summary>
-<div class="sec-body">
-<details class="qa"><summary>What is WBTC?</summary><div class="a"><p>WBTC (Wrapped Bitcoin) is tokenized Bitcoin: an ERC-20 token backed 1:1 by BTC held with institutional custodians, so Bitcoin's value can be used on smart-contract networks like Ethereum.</p></div></details>
-<details class="qa"><summary>Is WBTC the same as Bitcoin?</summary><div class="a"><p>No. WBTC tracks BTC's price, but it is a separate asset on a different network with a custodial trust model. Native BTC and WBTC are not interchangeable; you convert between them rather than simply moving one to the other.</p></div></details>
-<details class="qa"><summary>How do I convert WBTC back to BTC?</summary><div class="a"><p>Use a secondary-market trade by selling or swapping WBTC for another asset, or redeem through an approved merchant, which destroys the WBTC against BTC reserves and requires identity checks.</p></div></details>
-<details class="qa"><summary>Is WBTC really backed 1:1?</summary><div class="a"><p>By design, each WBTC corresponds to BTC held by the custodians, so its price tracks BTC closely. The backing is custodial, which means the reserve and redemption process depend on those custodians.</p></div></details>
-<details class="qa"><summary>What does it cost to trade WBTC?</summary><div class="a"><p>A DEX swap has network gas for the approval and swap, a pool fee paid to liquidity providers, and price impact that grows with trade size. The quoted output nets out the pool fee and impact; minimum received is the floor.</p></div></details>
-<details class="qa"><summary>Is the WBTC contract safe?</summary><div class="a"><p>Verify the address rather than trusting a ticker: on Ethereum mainnet it is 0x2260fac5e5542a773aa44fbcfedf7c193bc2c599. Audits and a long track record reduce risk but do not remove smart-contract, approval, routing, and custodial risks, and confirmed swaps cannot normally be reversed.</p></div></details>
+<div class="c59452d"><nav class="c7d33c6" aria-label="Breadcrumb"><a href="dashboard/">Home</a> <span>/</span> <span>Wrapping</span> <span>/</span> <span>Trade WBTC</span></nav></div>
+<section class="c3b5d91" id="hero" aria-labelledby="hero-title">
+<div class="c9ade87">
+<p class="ce04dd8">Wrap & unwrap</p>
+<h1 id="hero-title">Trade <em>WBTC</em>.</h1>
+<p class="c91274c">To trade WBTC is to run it as a working position rather than a single swap: a spot pair you size for depth, collateral you post against a loan, margin behind a leveraged perp, or liquidity you supply to a pool for fees. Each venue prices and settles WBTC differently, and the way you trade WBTC changes what you are actually exposed to — simple price risk on a spot pair, liquidation risk once you borrow against it, or funding-rate risk on a perp. This page covers the venues, the depth and collateral mechanics, and how to manage a position once it is open.</p>
+<a class="cfee5eb" href="dashboard/">Open app <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a>
+<p class="c5b540f"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg>Explore fees and timing below</p>
 </div>
-</details>
-<section class="field-notes reveal doc-sec" id="notes">
-<h2>Notes before you trade wbtc</h2>
-<div class="fn-body"><p>Trading WBTC is a standard ERC-20 exchange once the network, contract, and approval are correct. The common mistake is selecting WBTC by ticker from a DEX search instead of pasting the verified contract address. Before you sign:</p><ul><li>Match the full contract address (0x2260...c599 on Ethereum mainnet) against a block explorer.</li><li>Keep native gas on hand for both the approval and the swap, and wait for the approval to confirm.</li><li>Read minimum received and price impact on the DEX route; those define the execution boundary, not the headline quote.</li></ul><p><strong>Everything above was checked against the live contract and issuer documentation; last reviewed 21 July 2026.</strong></p><p>Independent reference - confirm the route in your own wallet.</p></div>
+<aside class="c21f2dd" aria-labelledby="estimator-title">
+<div class="c6a41b0">
+<div class="c9bd8cd"><h2 id="estimator-title">Wrap estimator</h2><span class="c79a41e">Auto-updating</span></div>
+<div class="cf56226">
+<div class="c26ad43"><span class="c42eb38">From</span><div class="c5f8fca"><img src="assets/tokens/btc.svg" alt="Bitcoin" width="28" height="28"></div></div>
+<span class="c23e471" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12h16m-6-6 6 6-6 6"/></svg></span>
+<div class="c26ad43"><span class="c42eb38">To</span><div class="c5f8fca"></div></div>
+</div>
+<label class="cad4ee0" for="amount">Amount</label>
+<div class="c2b5b8c"><input id="amount" type="number" inputmode="decimal" min="1" max="1000000000" step="0.01" value="1000" aria-describedby="amount-hint amount-error"><span>units</span></div>
+<p class="cc66f03" id="amount-hint">Enter 1вЂ“1,000,000,000 units, up to 2 decimal places.</p>
+<p class="c4b0062" id="amount-error" hidden></p>
+<div class="c60124e" role="status" aria-live="polite" aria-atomic="true">
+<span class="c5fe6c5">Estimated amount received</span>
+<output class="cc51a29" id="received" for="amount">вЂ”</output>
+<div class="c22b7d9">
+<div><span class="cf38dc4">Estimated fee</span><output class="cf67cae" id="fee" for="amount">вЂ”</output></div>
+<div><span class="cf38dc4">Estimated time</span><output class="cf67cae" id="time" for="amount">вЂ”</output></div>
+</div>
+</div>
+<a class="cfee5eb" href="dashboard/">Continue <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a>
+<details class="c0dd87b"><summary>How the estimate is calculated</summary><p>Fee = 0.5 units + 0.35% of the amount, rounded to 2 decimals. Amount received = amount в€’ fee. Time = 2 minutes + 1 minute per 10,000 units, rounded up.</p></details>
+<noscript><p class="cc66f03">Enable JavaScript to calculate fees and timing.</p></noscript>
+</div>
+</aside>
 </section>
-</div>
-</div>
-</div>
-<footer class="site-foot"><div class="wrap">Trade WBTC Guide &amp; Technical Reference · <a href="dashboard/" rel="noopener noreferrer" target="_blank">Open Trade WBTC App ↗</a> · © 2026</div></footer>
-</main>
+<section class="cc478f6" id="facts" aria-labelledby="facts-title"><h2 class="c612ccc" id="facts-title">Key facts</h2><div class="cd6f981" role="region" aria-label="Key facts table" tabindex="0"><table class="c064912"><tbody><tr><th scope="row">Asset</th><td>WBTC — ERC-20 token representing custodied BTC</td></tr>
+<tr><th scope="row">Custody model</th><td>Merchant-minted, BitGo-operated reserve</td></tr>
+<tr><th scope="row">Spot venues</th><td>DEX pools and centralized exchange order books</td></tr>
+<tr><th scope="row">Collateral use</th><td>Accepted on Aave and other money markets</td></tr>
+<tr><th scope="row">Liquidity pools</th><td>WBTC/ETH and WBTC/USDC on Uniswap</td></tr>
+<tr><th scope="row">Price reference</th><td>Tracks BTC spot; watch the DEX pool peg separately</td></tr></tbody></table></div></section>
+<main class="ca1e4b1" id="guide"><section class="ccd1ada"><h2 class="c2b2a26">What It Means to Trade WBTC</h2><div class="c0aff13"><strong>To trade WBTC is to hold and manage it as an active position across spot pairs, lending markets, perps and liquidity pools, not to swap it once and forget it.</strong> Because WBTC is an ordinary token on Ethereum and other EVM chains, it slots into every DeFi primitive that takes a token: it sits in an automated-market-maker pool, it backs a loan on a money market, it margins a leveraged perp, and it trades on both decentralized and centralized order books. The price you get and the risk you carry depend entirely on which of those venues you use, which is why a trader treats WBTC differently from a buyer who just wants bitcoin exposure in a wallet.<h3>Spot, leverage, collateral — pick the exposure you want</h3>A spot position is the simplest way to trade WBTC: you own the token and your only risk is price. Posting it as collateral adds a second variable — your loan's health factor — while opening a perp adds a third — funding and liquidation price on margin you did not fully deposit. None of these are better or worse in the abstract; they just carry different failure modes, and worth knowing before you pick a venue.<h3>Why depth matters more here than for a single swap</h3>A one-off swap only cares about slippage on one trade. A position you plan to adjust, add to, or unwind under pressure needs a venue with enough standing liquidity that your own size does not move the price against you on the way out.</div></section>
+<section class="ccd1ada"><h2 class="c2b2a26">Where You Can Trade WBTC: Spot Pairs and Depth</h2><div class="c0aff13">WBTC spot liquidity lives in two places: automated-market-maker pools on decentralized exchanges and order books on centralized exchanges. On a DEX, WBTC/ETH and WBTC/USDC pools on <a href="https://docs.uniswap.org/" rel="nofollow noopener" target="_blank">Uniswap</a> carry most of the on-chain depth, and you can check live reserves and volume for any pool before routing size through it. Centralized venues often show tighter spreads for very large clips, but you give up self-custody while the order sits there. The table below sets out where each venue type fits.<table><thead><tr><th>Venue type</th><th>Primary use</th><th>Key consideration</th></tr></thead><tbody><tr><td>DEX spot pool</td><td>Swaps, entries and exits</td><td>Slippage scales with trade size vs pool depth</td></tr><tr><td>CEX order book</td><td>Large clips, tight spreads</td><td>Custodial — asset leaves your wallet</td></tr><tr><td>Lending market</td><td>Collateral, borrowing against WBTC</td><td>Health factor and liquidation threshold</td></tr><tr><td>Perps venue</td><td>Leveraged long/short exposure</td><td>Funding rate and margin maintenance</td></tr></tbody></table><h3>Reading a pool before you size a trade</h3>Before committing real size to a WBTC pool, check total value locked and recent volume, which you can cross-reference on <a href="https://defillama.com/" rel="nofollow noopener" target="_blank">DefiLlama</a>. A pool with thin reserves will quote a fine price for a small test trade and a much worse one once your full order routes through it.<h3>Splitting size across venues</h3>Large positions are often better split across a DEX pool and a centralized order book rather than forced through either one alone, since each venue's depth is finite and price impact compounds non-linearly as a single fill grows.</div></section>
+<section class="ccd1ada"><h2 class="c2b2a26">How to Trade WBTC Using Lending Markets as Collateral</h2><div class="c0aff13">Posting WBTC as collateral lets you trade WBTC without selling it: you deposit the token into a money market, borrow a stablecoin or another asset against it, and keep your BTC-denominated exposure while putting the borrowed capital to work elsewhere. <a href="https://docs.aave.com/" rel="nofollow noopener" target="_blank">Aave's documentation</a> lays out how collateral factors and liquidation thresholds are set per asset, and WBTC typically carries a lower loan-to-value than a stablecoin because its price can move sharply.<h3>Health factor is the number to watch</h3>Every lending position reduces to one number: how far your collateral value is from the liquidation threshold. A WBTC-backed loan's health factor moves with BTC's price, so a drawdown that would be a non-event for a spot holder can trigger a forced liquidation for a borrower who sized the loan too close to the limit.<h3>Borrowing against WBTC vs selling it</h3>Selling WBTC realizes a taxable event in most jurisdictions and closes your position outright. Borrowing against it keeps the position open and only costs the market's variable interest rate, which is usually the better trade when you expect to want the BTC exposure back later.</div></section>
+<section class="ccd1ada"><h2 class="c2b2a26">Trade WBTC with Leverage: Perps and Derivatives</h2><div class="c0aff13">Perpetual futures let you trade WBTC-denominated exposure on margin without ever holding the underlying token: you post collateral, open a long or short at a chosen leverage, and pay or receive a periodic funding rate depending on which side of the market is crowded. Leverage amplifies both the gain and the liquidation risk, and the liquidation price on a leveraged WBTC perp moves closer to spot as leverage increases, leaving a much thinner buffer against normal volatility than a spot or collateralized position carries.<h3>Funding rate is a running cost, not a one-off fee</h3>Funding is paid or received every few hours based on the gap between the perp price and the index price. A position held for weeks can accumulate meaningful funding cost even if the mark price barely moves, so check the current rate before assuming a leveraged trade is cheaper than it looks.</div></section>
+<section class="ccd1ada"><h2 class="c2b2a26">Trade WBTC by Supplying Liquidity Pools</h2><div class="c0aff13">Instead of just swapping through a WBTC pool, you can supply liquidity to one and earn a share of its trading fees. Depositing WBTC and a paired asset into a pool on Uniswap turns your position into a market-making stake: you earn fees on every swap routed through the pool, but your two-sided holding is exposed to impermanent loss if the price ratio between WBTC and the paired asset moves materially while your liquidity sits there.<h3>When a pool position beats simply holding WBTC</h3>A liquidity position outperforms a plain holding when trading volume and fees stay high relative to price divergence between the pair. It underperforms when one side of the pair moves sharply, because the pool automatically sells the appreciating asset into the other — the mechanic behind impermanent loss.</div></section>
+<section class="ccd1ada"><h2 class="c2b2a26">Managing Risk Once You Trade WBTC</h2><div class="c0aff13">Opening the position is the easy part; managing it while the market moves is where a WBTC trade is actually won or lost. The checklist below covers the routine a disciplined position needs, whether it sits in a lending market, a perp, or a liquidity pool.<ul><li>Track your collateral or margin ratio daily, not just when the market is calm.</li><li>Set an alert well above the liquidation threshold so you have time to add margin or repay.</li><li>Check the funding rate on any open perp before assuming it is still the cheap side of the trade.</li><li>Compare pool TVL and volume periodically — depth you relied on at entry can thin out over weeks.</li><li>Decide your exit size in advance so you are not calculating slippage under pressure.</li></ul></div></section>
+<section class="ccd1ada"><h2 class="c2b2a26">Trade WBTC vs Other Bitcoin Exposure</h2><div class="c0aff13">WBTC is not the only way to get BTC exposure inside a trading venue, and the differences matter once you are managing a position rather than a single purchase. A custodial exchange balance in BTC never touches DeFi and cannot be posted as collateral on a money market or supplied to a pool. Trading WBTC instead gives up nothing in BTC price exposure while adding every composable use a token has — collateral, liquidity provision, perps margin — at the cost of one additional layer of trust in the custodian that mints it. You can verify the token's supply and holder activity directly on <a href="https://etherscan.io/token/0x2260fac5e5542a773aa44fbcfedf7c193bc2c599" rel="nofollow noopener" target="_blank">Etherscan</a>, and the <a href="https://wbtc.network/" rel="nofollow noopener" target="_blank">WBTC network site</a> documents the minting and burning process the custodian follows. For most active traders, that trade-off is the entire reason to hold WBTC instead of a plain exchange balance in the first place.</div></section><details class="ca0134e"><summary class="c3dc73a">What does it mean to trade WBTC instead of just swapping it once?</summary><div class="c11dd13">It means running WBTC as an ongoing position — in a spot pair, as loan collateral, as perp margin, or inside a liquidity pool — rather than buying it and leaving it untouched. Each venue changes what you are exposed to beyond plain price risk.</div></details>
+<details class="ca0134e"><summary class="c3dc73a">Can I use WBTC as collateral to borrow against?</summary><div class="c11dd13">Yes. Money markets such as Aave accept WBTC as collateral, letting you borrow a stablecoin or another asset while keeping your BTC-denominated exposure open. The tradeoff is a health factor that can trigger liquidation if BTC's price drops sharply.</div></details>
+<details class="ca0134e"><summary class="c3dc73a">Is trading WBTC on a DEX different from trading it on a centralized exchange?</summary><div class="c11dd13">Yes. A DEX pool is self-custodial and its price depends on pool depth, while a centralized order book can offer tighter spreads for large size but requires giving up custody of the asset while the order sits open.</div></details>
+<details class="ca0134e"><summary class="c3dc73a">What is the main risk of a leveraged WBTC perp?</summary><div class="c11dd13">Leverage compresses the distance between your entry price and your liquidation price, so a move that would be routine for a spot holder can force a leveraged position to close. Funding rate is an additional running cost on top of that risk.</div></details>
+<details class="ca0134e"><summary class="c3dc73a">Why would I supply WBTC to a liquidity pool instead of holding it?</summary><div class="c11dd13">A liquidity position earns trading fees on every swap routed through the pool, which can outperform simply holding WBTC when volume is high. It underperforms when the paired asset's price diverges sharply, due to impermanent loss.</div></details>
+<details class="ca0134e"><summary class="c3dc73a">How do I judge whether a WBTC pool has enough depth for my trade?</summary><div class="c11dd13">Check the pool's total value locked and recent volume before routing size through it — a small test trade can look fine on a thin pool and still produce heavy slippage once your full size follows.</div></details>
+<details class="ca0134e"><summary class="c3dc73a">Does trading WBTC carry more risk than holding BTC on a centralized exchange?</summary><div class="c11dd13">It carries a different risk, not simply more: WBTC adds custodian trust in exchange for composability across collateral, liquidity and perps venues that a plain exchange balance never reaches at all.</div></details></main>
+<section class="cfb174a" id="sources" aria-labelledby="sources-title"><h2 class="c612ccc" id="sources-title">Sources</h2><div><ul class="cbc2918"><li><a class="c6f01ec" href="https://docs.aave.com/" rel="nofollow noopener" target="_blank">Aave documentation</a></li>
+<li><a class="c6f01ec" href="https://docs.uniswap.org/" rel="nofollow noopener" target="_blank">Uniswap documentation</a></li>
+<li><a class="c6f01ec" href="https://wbtc.network/" rel="nofollow noopener" target="_blank">WBTC network</a></li>
+<li><a class="c6f01ec" href="https://defillama.com/" rel="nofollow noopener" target="_blank">DefiLlama</a></li></ul></div></section>
+<footer class="c8751e6"><span class="c725595">Compare with clarity.</span><p class="c16cbf2">Updated Oct 09, 2026</p></footer>
 </div>
 <script>
-/* Trade WBTC: route preview, mobile nav, scroll-reveal. */
-(function () {
-  "use strict";
-  document.documentElement.classList.add("js");
-  var $ = function (id) { return document.getElementById(id); };
-  function money(n) {
-    if (n >= 1e9) return "$" + (n / 1e9).toFixed(2) + "B";
-    if (n >= 1e6) return "$" + (n / 1e6).toFixed(2) + "M";
-    if (n >= 1e3) return "$" + (n / 1e3).toFixed(0) + "K";
-    return "$" + n.toFixed(0);
-  }
-  function grab(url) {
-    var controller = "AbortController" in window ? new AbortController() : null;
-    var timer = controller ? setTimeout(function () { controller.abort(); }, 6500) : null;
-    return fetch(url, controller ? { signal: controller.signal } : undefined)
-      .then(function (response) { if (!response.ok) throw new Error("HTTP " + response.status); return response.json(); })
-      .finally(function () { if (timer) clearTimeout(timer); });
-  }
-  var SIGNALS = [{"t": "price", "id": "sig-bitcoin", "cg": "bitcoin", "label": "BTC", "link": "https://www.coingecko.com/en/coins/bitcoin", "chg": true}, {"t": "price", "id": "sig-wrapped-bitcoin", "cg": "wrapped-bitcoin", "label": "WBTC", "link": "https://www.coingecko.com/en/coins/wrapped-bitcoin"}];
-  (function(){
-    var S = SIGNALS; if(!S||!S.length) return;
-    function el(id){return document.getElementById(id);}
-    function hide(id){var e=el(id);if(e){var t=e.closest(".tick");if(t)t.style.display="none";}}
-    function set(id,x){var e=el(id);if(e)e.textContent=x;}
-    function usd(n){n=Number(n);return "$"+n.toLocaleString("en-US",{maximumFractionDigits:n<1?4:0});}
-    function big(n){n=Number(n);if(n>=1e9)return "$"+(n/1e9).toFixed(2)+"B";if(n>=1e6)return "$"+(n/1e6).toFixed(1)+"M";if(n>=1e3)return "$"+(n/1e3).toFixed(1)+"K";return "$"+Math.round(n);}
-    function jf(u){return fetch(u).then(function(r){if(!r.ok)throw 0;return r.json();});}
-    var coins = S.filter(function(s){return s.t==="price"||s.t==="mcap";});
-    if(coins.length){
-      var ids=coins.map(function(s){return s.cg;}).filter(function(v,i,a){return a.indexOf(v)===i;}).join(",");
-      jf("https://api.coingecko.com/api/v3/simple/price?ids="+ids+"&vs_currencies=usd&include_24hr_change=true&include_market_cap=true")
-        .then(function(v){coins.forEach(function(s){var d=v[s.cg];if(!d){hide(s.id);return;}
-          if(s.t==="mcap"){isFinite(d.usd_market_cap)&&d.usd_market_cap>0?set(s.id,big(d.usd_market_cap)):hide(s.id);return;}
-          if(isFinite(d.usd)){var x=usd(d.usd);if(s.chg&&isFinite(d.usd_24h_change)){var c=d.usd_24h_change;x+=" "+(c>=0?"▲":"▼")+Math.abs(c).toFixed(1)+"%";}set(s.id,x);}else hide(s.id);});})
-        .catch(function(){coins.forEach(function(s){hide(s.id);});});
+(() => {
+  const amount = document.getElementById('amount');
+  const received = document.getElementById('received');
+  const fee = document.getElementById('fee');
+  const time = document.getElementById('time');
+  const error = document.getElementById('amount-error');
+  const number = new Intl.NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  let timer;
+  function update() {
+    const value = amount.valueAsNumber;
+    const valid = amount.value.trim() !== '' && Number.isFinite(value) && amount.validity.valid;
+    amount.setAttribute('aria-invalid', String(!valid));
+    error.hidden = valid;
+    error.textContent = valid ? '' : 'Enter an amount from 1 to 1,000,000,000 with up to 2 decimal places.';
+    if (!valid) {
+      received.textContent = 'вЂ”';
+      fee.textContent = 'вЂ”';
+      time.textContent = 'вЂ”';
+      return;
     }
-    S.forEach(function(s){
-      if(s.t==="tvl") jf("https://api.llama.fi/tvl/"+s.sl).then(function(v){var n=Number(v);isFinite(n)&&n>0?set(s.id,big(n)):hide(s.id);}).catch(function(){hide(s.id);});
-      else if(s.t==="vol") jf("https://api.llama.fi/summary/dexs/"+s.sl+"?excludeTotalDataChart=true&excludeTotalDataChartBreakdown=true").then(function(v){var n=v&&Number(v.total24h);isFinite(n)&&n>0?set(s.id,big(n)):hide(s.id);}).catch(function(){hide(s.id);});
-      else if(s.t==="ctvl") jf("https://api.llama.fi/v2/chains").then(function(a){var f=(a||[]).filter(function(c){return c.name===s.ch;})[0];f&&isFinite(f.tvl)&&f.tvl>0?set(s.id,big(f.tvl)):hide(s.id);}).catch(function(){hide(s.id);});
-    });
-  })();
-/* metrics handled above */
-
-  var swap = $("route-swap");
-  if (swap) swap.addEventListener("click", function () {
-    var from = $("asset-from"), to = $("asset-to"), hold = from.innerHTML;
-    from.innerHTML = to.innerHTML;
-    to.innerHTML = hold;
-  });
-
-  /* AMM / TWAMM route switch (preview label only). */
-  var modeToggle = $("mode-toggle");
-  if (modeToggle) modeToggle.addEventListener("click", function () {
-    var twamm = modeToggle.getAttribute("aria-checked") !== "true";
-    modeToggle.setAttribute("aria-checked", String(twamm));
-    var amm = $("ms-amm"), tw = $("ms-twamm"), name = $("route-name");
-    if (amm) amm.classList.toggle("is-on", !twamm);
-    if (tw) tw.classList.toggle("is-on", twamm);
-    if (name) name.textContent = twamm ? "WBTC → BTC" : "BTC → WBTC";
-  });
-
-  /* Collapsed left menu: off-canvas drawer opened from the topbar, closed by scrim / Esc / link / close button. */
-  var shell = document.querySelector(".shell");
-  var sidebar = document.querySelector(".sidebar");
-  var sideNav = $("sideNav");
-  var scrim = document.querySelector("[data-scrim]");
-  var openBtn = document.querySelector("[data-nav-open]");
-  var closeBtn = document.querySelector(".nav-toggle");
-  function setNav(open) {
-    if (sidebar) sidebar.classList.toggle("is-open", open);
-    if (scrim) scrim.classList.toggle("is-open", open);
-    if (shell) shell.classList.toggle("nav-open", open);
-    if (openBtn) openBtn.setAttribute("aria-expanded", String(open));
-    if (closeBtn) closeBtn.setAttribute("aria-expanded", String(open));
+    const amountCents = Math.round(value * 100);
+    const feeCents = 50 + Math.round(amountCents * 35 / 10000);
+    received.textContent = number.format((amountCents - feeCents) / 100) + ' units';
+    fee.textContent = number.format(feeCents / 100) + ' units';
+    time.textContent = (2 + Math.ceil(value / 10000)).toLocaleString('en-US') + ' min';
   }
-  if (openBtn) openBtn.addEventListener("click", function () { setNav(!(sidebar && sidebar.classList.contains("is-open"))); });
-  if (closeBtn) closeBtn.addEventListener("click", function () { setNav(false); });
-  if (scrim) scrim.addEventListener("click", function () { setNav(false); });
-  document.addEventListener("keydown", function (e) { if (e.key === "Escape") setNav(false); });
-  if (sideNav) sideNav.addEventListener("click", function (e) { if (e.target.closest("a")) setNav(false); });
-
-  /* Scroll-reveal: content is always in the HTML; this only animates it into view. */
-  var reveals = document.querySelectorAll(".reveal");
-  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (reveals.length && "IntersectionObserver" in window && !reduce) {
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
-    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
-    reveals.forEach(function (el) { io.observe(el); });
-  } else {
-    reveals.forEach(function (el) { el.classList.add("in"); });
-  }
-
-  /* Open (and reveal) the targeted section accordion when its fragment is used. */
-  function openHashTarget() {
-    var id = location.hash.slice(1);
-    if (!id) return;
-    var el = document.getElementById(id);
-    if (el && el.tagName === "DETAILS") { el.open = true; el.classList.add("in"); }
-  }
-  window.addEventListener("hashchange", openHashTarget);
-  openHashTarget();
-  document.addEventListener("click", function (e) {
-    var a = e.target.closest('a[href^="#"]');
-    if (!a) return;
-    var el = document.getElementById(a.getAttribute("href").slice(1));
-    if (el && el.tagName === "DETAILS") { el.open = true; el.classList.add("in"); }
+  amount.addEventListener('input', () => {
+    clearTimeout(timer);
+    timer = setTimeout(update, 180);
   });
-
-  })();
-  (function(){
-    var links=[].slice.call(document.querySelectorAll(".toc a"));
-    if(!links.length)return;
-    var secs=[].slice.call(document.querySelectorAll(".doc-main [id]")).filter(function(s){return document.querySelector('.toc a[href="#'+s.id+'"]');});
-    if(!secs.length)return;
-    function setActive(id){links.forEach(function(a){a.classList.toggle("active",a.getAttribute("href")==="#"+id);});}
-    function update(){var cur=secs[0];for(var i=0;i<secs.length;i++){if(secs[i].getBoundingClientRect().top-120<=0)cur=secs[i];else break;}if(window.innerHeight+window.scrollY>=document.documentElement.scrollHeight-4)cur=secs[secs.length-1];if(cur)setActive(cur.id);}
-    window.addEventListener("scroll",update,{passive:true});
-    window.addEventListener("resize",update);
+  amount.addEventListener('change', () => {
+    clearTimeout(timer);
     update();
-  })();
-  </script>
+  });
+  update();
+})();
+</script>
 </body>
 </html>
